@@ -50,3 +50,12 @@ siguiente índice de contenidos:
     - Colección y análisis de datos
 
 
+## Bibliografía
+
+En este curso utilizaremos varias fuentes de referencia para desarrollar nuestro contenido.
+Las siguientes son algunas de las referencias más relevantes, aunque no las únicas:
+
+- Siddhartha Chatterjee, Michal Krystyanczuk, [*Python Social Media Analytics*](https://www.packtpub.com/product/python-social-media-analytics/9781787121485), Packt Publishing 2017
+- Matthew A. Russell, Mikhail Klassen, [*Mining the Social Web, 3rd Edition*](https://www.oreilly.com/library/view/mining-the-social/9781491973547/), O'Reilly 2019
+- Ryan Mitchell, [*Web Scraping with Python, 2nd Edition*](https://www.oreilly.com/library/view/web-scraping-with/9781491985564/), O'Reilly 2018
+- Gabor Szabo, Gungor Polatkan, P. Oscar Boykin, Antonios Chalkiopoulos, [*Social Media Data Mining and Analytics*](https://www.wiley.com/en-us/Social+Media+Data+Mining+and+Analytics-p-9781118824856), Wiley 2018
