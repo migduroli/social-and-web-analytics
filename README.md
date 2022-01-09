@@ -69,4 +69,6 @@ con la asignatura:
 
 ## Colaboración
 
-El repositorio está abierto a la colaboración y mejora de los ejemplos, pero siempre siguiendo unas normas básicas de estilo y comportamiento. Los pasos de contribución están especificados en [Contributing.md]()
+El repositorio está abierto a la colaboración y mejora de los ejemplos, pero siempre 
+siguiendo unas normas básicas de estilo y comportamiento. Los pasos de contribución están 
+especificados en [Contributing.md](CONTRIBUTING.md).
