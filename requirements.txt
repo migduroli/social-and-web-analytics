@@ -1,0 +1,5 @@
+python-twitter-v2
+pandas
+numpy
+authlib
+requests
