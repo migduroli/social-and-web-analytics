@@ -29,6 +29,35 @@ tweets = api.search_tweets(
 single_tweet = tweets.data[0]
 print(single_tweet.to_json())
 
+# post a new tweet:
 r = api.create_tweet(text="Hello world!")
 
+# delete the tweet:
 api.delete_tweet(tweet_id=r.id)
+
+# search tweets on Comillas:
+search = api.search_tweets(
+    query='"Universidad Pontificia de Comillas"',
+    max_results=10,
+    tweet_fields=[
+        "id",
+        "author_id",
+        "geo",
+        "lang",
+        "created_at"
+    ]
+)
+
+for t in search.data:
+    print(f"({t.created_at}) {t.id}: {t.text} => {t.geo}\n")
+
+
+# get user data and timeline:
+comillas_user = api.get_user(username="ucomillas")
+comillas_activity = api.get_timelines(
+    user_id=comillas_user.data.id,
+    tweet_fields=["created_at"]
+)
+
+for t in comillas_activity.data:
+    print(f"{t.created_at}: {t.text}")
