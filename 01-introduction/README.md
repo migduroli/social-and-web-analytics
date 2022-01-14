@@ -212,5 +212,21 @@ proceder del modo estándar, i.e.:
 Lo que nos abrirá una ventana en nuestro explorador web, mostrando el árbol del directorio
 donde hemos ejecutado el comando:
 
-![jupyter-notebook landing page](img/jupyter-landing.png "Landing page")
+![jupyter-notebook-landing-page](img/jupyter-landing.png "Landing page")
 
+A posteriori, solo tenemos que hacer click en `New` > `Python 3 (ipykernel)`:
+
+![jupyter-notebook-create](img/create-new-ipynb.png "Landing page")
+
+Lo que finalmente nos llevará al notebook:
+
+![jupyter-notebook-create](img/jupyter-nb-new.png "New notebook")
+
+Y con esto tendremos creado y guardado nuestro primer fichero `.ipynb` (jupyter notebook).
+Para hacer esta tarea menos tediosa y más directa a nivel programático, se puede usar el
+script [create-notebook](create-notebook.sh) de la siguiente forma:
+```shell
+> chmod a+x create-notebook && ./create-notebook nombre_del_notebook
+```
+Este comando creará un notebook con el nombre `nombre_del_notebook.ipynb`, y lo abrirá a
+continuación, todo con una sola línea de comando. 
