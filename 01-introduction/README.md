@@ -60,19 +60,19 @@ programática:
 
 *Windows*:
 ```shell
-winget install -e --id Anaconda.Anaconda3
+> winget install -e --id Anaconda.Anaconda3
 ```
 
 *Linux*:
 ```shell
-wget https://repo.anaconda.com/archive/Anaconda3-2021.11-Linux-x86_64.sh && \
+> wget https://repo.anaconda.com/archive/Anaconda3-2021.11-Linux-x86_64.sh && \
 chmod a+x Anaconda3-2021.11-Linux-x86_64.sh && \
 ./Anaconda3-2021.11-Linux-x86_64.sh
 ```
 
 *macOS*:
 ```shell
-wget https://repo.anaconda.com/archive/Anaconda3-2021.11-MacOSX-x86_64.sh && \
+> wget https://repo.anaconda.com/archive/Anaconda3-2021.11-MacOSX-x86_64.sh && \
 chmod a+x Anaconda3-2021.11-MacOSX-x86_64.sh && \
 ./Anaconda3-2021.11-MacOSX-x86_64.sh 
 ```
@@ -95,7 +95,7 @@ entorno con el nombre `swa-dev` (inspirados por las iniciales del curso, y añad
 para remarcar que estamos en la etapa de desarrollo), con `Python 3.8`:
 
 ```shell
-conda create --name swa-dev python=3.8 --yes
+> conda create --name swa-dev python=3.8 --yes
 ```
 
 El parámetro adicional `--yes` lo hemos añadido para pasarlo directamente a la pregunta:
@@ -138,7 +138,7 @@ que nos informa de los dos comandos que tendremos que usar para la activación y
 del entorno. Si queremos saber que entornos tenemos creados ahora mismo en nuestro sistema,
 podemos usar el siguiente comando:
 ```shell
-conda env list
+> conda env list
 
 # conda environments:
 #
@@ -148,7 +148,7 @@ swa-dev                  /YOUR_USER_PATH/anaconda3/envs/swa-dev
 El símbolo `*` denota que tenemos activado el entorno por defecto (`base`). Para comenzar
 con nuestro curso, vamos a proceder a la activación del entorno:
 ```shell 
-conda activate swa-dev && conda env list
+> conda activate swa-dev && conda env list
  
 # conda environments:
 #
