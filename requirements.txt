@@ -1,5 +1,8 @@
 python-twitter-v2
+facebook-sdk
 pandas
 numpy
 authlib
 requests
+pytrends
+plotly
