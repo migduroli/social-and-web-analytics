@@ -36,5 +36,40 @@ que va a requerir de los siguientes componentes:
   periodismo computacional y *Machine Learning*. 
   Las instrucciones para su instalación se pueden encontrar [aquí](https://jupyter.org/install).
   
+## Python y Conda
 
-- []()
+En el apartado anterior hemos comentado que el lenguaje de programación usado en este curso
+será Python, y hemos también hecho mención al gestor de entornos Conda (también se suele 
+referir como Anaconda, aunque Conda es el administrador de paquetes mientras que Anaconda 
+es un conjunto de alrededor de cien paquetes que incluye entre otros: conda, numpy, scipy,
+ipython notebook, etc.) Procedamos a entender un poco mejor su interrelación y 
+utilización mediante una serie de preguntas y respuestas:
+
+
+- **¿Tengo que instalar python y conda?**: La respuesta rápida es que *NO*. Utilizaremos 
+  Conda como gestor de entornos, y será Conda quien gestione la instalación y activación
+  de la versión de python que necesitemos cuando procedamos a la creación de un entorno.
+  
+- **¿Qué tengo que hacer para instalar conda?**: Esto depende un poco del OS con el que estés
+  trabajando como hemos comentado en el apartado anterior. En cualquier caso, a continuación 
+  apuntamos los comandos a ejecutar por terminal en caso que prefiramos hacer una instalación
+  programática:
+  
+  *Windows*:
+  ```shell
+  winget install -e --id Anaconda.Anaconda3
+  ```
+  
+  *Linux*:
+  ```shell
+  wget https://repo.anaconda.com/archive/Anaconda3-2021.11-Linux-x86_64.sh && \
+  chmod a+x Anaconda3-2021.11-Linux-x86_64.sh && \
+  ./Anaconda3-2021.11-Linux-x86_64.sh
+  ```
+  
+  *macOS*:
+  ```shell
+  wget https://repo.anaconda.com/archive/Anaconda3-2021.11-MacOSX-x86_64.sh && \
+  chmod a+x Anaconda3-2021.11-MacOSX-x86_64.sh && \
+  ./Anaconda3-2021.11-MacOSX-x86_64.sh 
+  ```
