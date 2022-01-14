@@ -156,6 +156,61 @@ base                     /YOUR_USER_PATH/anaconda3
 swa-dev               *  /YOUR_USER_PATH/anaconda3/envs/swa-dev
 ```
 
+Para ver que estas en un entorno completamente limpio, puedes usar el comando `pip freeze`
+que te indicará las dependencias instaladas (deberías obtener algo similar a lo siguiente):
+```shell
+> pip freeze
 
+certifi==2021.10.8
+oauthlib==3.1.1
+requests-oauthlib==1.3.0
+```
 
+## Jupyter Notebooks
+
+Ahora que ya tenemos creado y activado nuestro entorno de desarrollo, vamos a instalar 
+Jupyter en este entorno. Para ello, simplemente tenmos que hacer uso del gestor `pip`:
+```shell
+> pip install notebook
+
+Collecting notebook
+  Using cached notebook-6.4.7-py3-none-any.whl (9.9 MB)
+Collecting jupyter-client>=5.3.4
+  Using cached jupyter_client-7.1.0-py3-none-any.whl (129 kB)
+Collecting argon2-cffi
+  Using cached argon2_cffi-21.3.0-py3-none-any.whl (14 kB)
+Collecting tornado>=6.1
+  Using cached tornado-6.1-cp38-cp38-macosx_10_9_x86_64.whl (416 kB)
+Collecting jinja2
+  Using cached Jinja2-3.0.3-py3-none-any.whl (133 kB)
+Collecting ipykernel
+...
+...
+...
+Successfully installed MarkupSafe-2.0.1 Send2Trash-1.8.0 appnope-0.1.2 argon2-cffi-21.3.0
+ argon2-cffi-bindings-21.2.0 asttokens-2.0.5 attrs-21.4.0 backcall-0.2.0 black-21.12b0 
+ bleach-4.1.0 cffi-1.15.0 click-8.0.3 debugpy-1.5.1 decorator-5.1.1 defusedxml-0.7.1 
+ entrypoints-0.3 executing-0.8.2 importlib-resources-5.4.0 ipykernel-6.7.0 ipython-8.0.0 
+ ipython-genutils-0.2.0 jedi-0.18.1 jinja2-3.0.3 jsonschema-4.4.0 jupyter-client-7.1.0 
+ jupyter-core-4.9.1 jupyterlab-pygments-0.1.2 matplotlib-inline-0.1.3 mistune-0.8.4 
+ mypy-extensions-0.4.3 nbclient-0.5.10 nbconvert-6.4.0 nbformat-5.1.3 nest-asyncio-1.5.4 
+ notebook-6.4.7 packaging-21.3 pandocfilters-1.5.0 parso-0.8.3 pathspec-0.9.0 pexpect-4.8.0 
+ pickleshare-0.7.5 platformdirs-2.4.1 prometheus-client-0.12.0 prompt-toolkit-3.0.24 
+ ptyprocess-0.7.0 pure-eval-0.2.1 pycparser-2.21 pygments-2.11.2 pyparsing-3.0.6 
+ pyrsistent-0.18.0 python-dateutil-2.8.2 pyzmq-22.3.0 six-1.16.0 stack-data-0.1.3 
+ terminado-0.12.1 testpath-0.5.0 tomli-1.2.3 tornado-6.1 traitlets-5.1.1 
+ typing-extensions-4.0.1 wcwidth-0.2.5 webencodings-0.5.1 zipp-3.7.0
+```
+
+🥳 Enhorabuena! ya tienes instalado Jupyter Notebooks.  
+
+Ahora ya podemos empezar a crear nuestro primer *Jupyter Notebook*, para lo cual podemos 
+proceder del modo estándar, i.e.:
+```shell
+> jupyter-notebook
+```
+Lo que nos abrirá una ventana en nuestro explorador web, mostrando el árbol del directorio
+donde hemos ejecutado el comando:
+
+![jupyter-notebook landing page](img/jupyter-landing.png "Landing page")
 
