@@ -87,3 +87,75 @@ comando:
 conda 4.8.2
 ```
 
+### Gestión de entornos con conda
+
+Una vez hemos comprobado que podemos usar la línea de comandos recien instalada, vamos a 
+proceder a la creación de nuestro primer entorno Python. En particular, vamos a crear un
+entorno con el nombre `swa-dev` (inspirados por las iniciales del curso, y añadiendod `dev`
+para remarcar que estamos en la etapa de desarrollo), con `Python 3.8`:
+
+```shell
+conda create --name swa-dev python=3.8 --yes
+```
+
+El parámetro adicional `--yes` lo hemos añadido para pasarlo directamente a la pregunta:
+
+```shell
+The following NEW packages will be INSTALLED:
+
+  ca-certificates    pkgs/main/osx-64::ca-certificates-2021.10.26-hecd8cb5_2
+  certifi            pkgs/main/osx-64::certifi-2021.10.8-py38hecd8cb5_2
+  libcxx             pkgs/main/osx-64::libcxx-12.0.0-h2f01273_0
+  libffi             pkgs/main/osx-64::libffi-3.3-hb1e8313_2
+  ncurses            pkgs/main/osx-64::ncurses-6.3-hca72f7f_2
+  openssl            pkgs/main/osx-64::openssl-1.1.1m-hca72f7f_0
+  pip                pkgs/main/osx-64::pip-21.2.4-py38hecd8cb5_0
+  python             pkgs/main/osx-64::python-3.8.12-h88f2d9e_0
+  readline           pkgs/main/osx-64::readline-8.1.2-hca72f7f_1
+  setuptools         pkgs/main/osx-64::setuptools-58.0.4-py38hecd8cb5_0
+  sqlite             pkgs/main/osx-64::sqlite-3.37.0-h707629a_0
+  tk                 pkgs/main/osx-64::tk-8.6.11-h7bc2e8c_0
+  wheel              pkgs/main/noarch::wheel-0.37.1-pyhd3eb1b0_0
+  xz                 pkgs/main/osx-64::xz-5.2.5-h1de35cc_0
+  zlib               pkgs/main/osx-64::zlib-1.2.11-h4dc903c_4
+```
+
+en la que se nos informa (pausando la creación del entorno hasta que se de autorización)
+de los diferentes paquetes que serán instalados en la creación de nuestro nuevo entorno
+llamado `swa-dev`.
+
+Una vez terminada la creación, deberemos haber obtenido un mensaje como el que sigue:
+```shell
+# To activate this environment, use
+#
+#     $ conda activate swa-dev
+#
+# To deactivate an active environment, use
+#
+#     $ conda deactivate
+```
+que nos informa de los dos comandos que tendremos que usar para la activación y desactivación
+del entorno. Si queremos saber que entornos tenemos creados ahora mismo en nuestro sistema,
+podemos usar el siguiente comando:
+```shell
+conda env list
+
+# conda environments:
+#
+base                  *  /YOUR_USER_PATH/anaconda3
+swa-dev                  /YOUR_USER_PATH/anaconda3/envs/swa-dev
+```
+El símbolo `*` denota que tenemos activado el entorno por defecto (`base`). Para comenzar
+con nuestro curso, vamos a proceder a la activación del entorno:
+```shell 
+conda activate swa-dev && conda env list
+ 
+# conda environments:
+#
+base                     /YOUR_USER_PATH/anaconda3
+swa-dev               *  /YOUR_USER_PATH/anaconda3/envs/swa-dev
+```
+
+
+
+
