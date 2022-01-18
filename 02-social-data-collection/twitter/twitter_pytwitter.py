@@ -53,10 +53,13 @@ for t in search.data:
 
 
 # get user data and timeline:
-comillas_user = api.get_user(username="ucomillas")
+comillas_user = api.get_user(
+    username="ucomillas",
+    user_fields=["public_metrics"],
+)
 comillas_activity = api.get_timelines(
     user_id=comillas_user.data.id,
-    tweet_fields=["created_at"]
+    tweet_fields=["created_at", "public_metrics"]
 )
 
 for t in comillas_activity.data:

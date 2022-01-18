@@ -113,6 +113,37 @@ def tweet(
     return r
 
 
+def get_user_id(
+    user_name: str,
+    user_auth: OAuth1Auth,
+):
+    url = f"{BASE_API_URL_V2}/users/by/username/{user_name}"
+    result = SESSION.get(
+        url=url,
+        auth=user_auth
+    )
+
+    return result.json()["data"]["id"]
+
+
+def get_user_followers(
+    user_id: str,
+    user_auth: OAuth1Auth,
+    max_results: None,
+):
+    url = f"{BASE_API_URL_V2}/users/{user_id}/followers"
+
+    if max_results:
+        url += f'?{urlencode({"max_results": max_results})}'
+        print(url)
+
+    result = SESSION.get(
+        url=url,
+        auth=user_auth
+    )
+    return result.json()["data"]
+
+
 credentials = load_credentials(
     file_path="auth/twitter_credentials.json",
 )

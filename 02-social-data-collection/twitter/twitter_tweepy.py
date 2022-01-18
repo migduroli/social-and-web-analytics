@@ -1,3 +1,5 @@
+import time
+
 import tweepy
 import json
 
@@ -15,7 +17,10 @@ auth.set_access_token(
     credentials["ACCESS_SECRET"],
 )
 
-api = tweepy.API(auth)
+api = tweepy.API(
+    auth=auth,
+    wait_on_rate_limit=True,
+)
 
 public_tweets = api.home_timeline()
 for tweet in public_tweets:
@@ -31,4 +36,17 @@ trends_madrid = api.get_place_trends(madrid_woeid)
 trends_madrid_df = pd.DataFrame(data=trends_madrid[0]["trends"])
 
 # get user information:
-comillas_user = api.get_user(screen_name="ucomillas")
+comillas_screen_name = "ucomillas"
+comillas_user = api.get_user(screen_name=comillas_screen_name)
+
+# counting total:
+followers_iterator = tweepy.Cursor(
+    api.get_followers,
+    screen_name=comillas_screen_name
+)
+
+follower_ids = []
+for t in followers_iterator.items():
+    print(f"Adding user_id to the list...")
+    follower_ids.append(t.id)
+
