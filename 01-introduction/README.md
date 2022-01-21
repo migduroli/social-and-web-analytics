@@ -239,4 +239,4 @@ import sys
 sys.version
 ```
 y ejecutar el bloque, deberíamos obtener `3.8.12` (a día 14/Enero/2022).
-El notebook creado con susodicho bloque de código se puede ver [aquí](example-ipynb/example-nb.ipynb).
+El notebook creado con susodicho bloque de código se puede ver [aquí](_output/example-nb.ipynb).
