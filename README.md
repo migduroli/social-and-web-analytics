@@ -15,8 +15,8 @@ siguiente índice de contenidos:
    
     - Datos sociales y de la web
     - Proceso de explotación datos
-    - Entorno de trabajo
-
+    - [Entorno de trabajo](01-introduction/README.md)
+    - [Breve introducción a Python](01-introduction/intro-python)
 
 2. Recopilación de información de redes sociales
       
