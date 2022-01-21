@@ -1,4 +1,6 @@
 python-twitter-v2
+tweepy
+matplotlib
 facebook-sdk
 pandas
 numpy

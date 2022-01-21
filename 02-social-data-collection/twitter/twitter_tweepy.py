@@ -1,86 +1,133 @@
-import time
+import datetime
+import plotly.express as px
 
 import tweepy
 import json
 
 import pandas as pd
 
-with open("auth/twitter_credentials_ext.json", "r") as file:
-    credentials = json.load(file)
 
-auth = tweepy.OAuthHandler(
-    credentials["CONSUMER_KEY"],
-    credentials["CONSUMER_SECRET"]
+def get_credentials(file: dict):
+    """Reads credential from json file
+    :param file: JSON file with CONSUMER and ACCESS TOKE and SECRET values
+    :return: dict
+    """
+    with open(file, "r") as file:
+        result = json.load(file)
+        return result
+
+
+CREDS = get_credentials(file="auth/twitter_credentials.json")
+
+AUTH = tweepy.OAuthHandler(
+    CREDS["CONSUMER_KEY"],
+    CREDS["CONSUMER_SECRET"]
 )
-auth.set_access_token(
-    credentials["ACCESS_TOKEN"],
-    credentials["ACCESS_SECRET"],
+AUTH.set_access_token(
+    CREDS["ACCESS_TOKEN"],
+    CREDS["ACCESS_SECRET"],
 )
 
-# V1:
-api = tweepy.API(
-    auth=auth,
+API_V1 = tweepy.API(
+    auth=AUTH,
     wait_on_rate_limit=True,
 )
 
-public_tweets = api.home_timeline()
-for tweet in public_tweets:
-    print(tweet.text)
-
-# available trends_
-trends = api.available_trends()
-
-
-# trens per location:
-madrid_woeid = 766273
-trends_madrid = api.get_place_trends(madrid_woeid)
-trends_madrid_df = pd.DataFrame(data=trends_madrid[0]["trends"])
-
-# get user information:
-comillas_screen_name = "ucomillas"
-comillas_user = api.get_user(screen_name=comillas_screen_name)
-
-# counting total:
-followers_iterator = tweepy.Cursor(
-    api.get_followers,
-    screen_name=comillas_screen_name
+API_V2 = tweepy.Client(
+    bearer_token=CREDS["BEARER_TOKEN"],
+    consumer_key=CREDS["CONSUMER_KEY"],
+    consumer_secret=CREDS["CONSUMER_SECRET"],
+    access_token=CREDS["ACCESS_TOKEN"],
+    access_token_secret=CREDS["ACCESS_SECRET"]
 )
 
-follower_ids = []
-for t in followers_iterator.items():
-    print(f"Adding user_id to the list...")
-    follower_ids.append(t.id)
+
+def example_v1_trends():
+    public_tweets = API_V1.home_timeline()
+    for tweet in public_tweets:
+        print(tweet.text)
+
+    # available trends_
+    trends = API_V1.available_trends()
+
+    return trends
 
 
-# V2:
-client = tweepy.Client(
-    bearer_token=credentials["BEARER_TOKEN"],
-    consumer_key=credentials["CONSUMER_KEY"],
-    consumer_secret=credentials["CONSUMER_SECRET"],
-    access_token=credentials["ACCESS_TOKEN"],
-    access_token_secret=credentials["ACCESS_SECRET"]
-)
+def example_v1_place_trends(woeid: int = 766273):
+    # trens per location:
+    trends = API_V1.get_place_trends(woeid)
+    trends_df = pd.DataFrame(data=trends[0]["trends"])
+
+    return trends, trends_df
+
+
+def example_v1_get_user_info(username: str):
+    # get user information:
+    user = API_V1.get_user(screen_name=username)
+
+    # counting total:
+    followers_iterator = tweepy.Cursor(
+        API_V1.get_followers,
+        screen_name=username
+    )
+
+    follower_ids = []
+    for t in followers_iterator.items():
+        print(f"Adding user_id to the list...")
+        follower_ids.append(t.id)
+
+    return user, follower_ids
+
+
+# region V2:
 
 # Replace with your own search query
-query = 'from:suhemparack -is:retweet'
+def example_v2_recent(
+        query: str = 'from:suhemparack -is:retweet',
+        tweet_fields: list = ['context_annotations', 'created_at'],
+        max_results: int = 100,
+):
+    tweets = API_V2.search_recent_tweets(
+        query=query,
+        tweet_fields=tweet_fields,
+        max_results=max_results,
+    )
 
-# Replace with time period of your choice
-start_time = '2020-01-01T00:00:00Z'
-
-# Replace with time period of your choice
-end_time = '2020-08-01T00:00:00Z'
-
-tweets = client.search_all_tweets(query=query, tweet_fields=['context_annotations', 'created_at'],
-                                  start_time=start_time,
-                                  end_time=end_time, max_results=100)
+    return tweets
 
 
-query = 'covid -is:retweet'
+def example_v2_paginator(
+        query: str = "djokovic -is:retweet lang:en",
+        tweet_fields: list = [
+            'context_annotations',
+            'created_at',
+            'author_id',
+        ],
+        max_results: int = 100,
+        max_items: int = 1000,
+        hist: bool = False,
+):
+    tweets = [
+        tweet
+        for tweet in tweepy.Paginator(
+            API_V2.search_recent_tweets,
+            query=query,
+            tweet_fields=tweet_fields,
+            max_results=max_results).flatten(limit=max_items)
+    ]
 
-tweets = []
-for tweet in tweepy.Paginator(client.search_recent_tweets, query=query,
-                              tweet_fields=[
-                                  'context_annotations',
-                                  'created_at'
-                              ], max_results=100).flatten(limit=1000):
-    tweets.append(tweet)
+    return tweets
+
+
+def example_histogram(tweets: list):
+    data = [{"date": d.created_at, "text": d.text} for d in tweets]
+
+    words = [
+        d["text"].split()
+        for d in data
+    ]
+    words = sum(words, [])
+
+    df = pd.DataFrame({"words": words})
+    fig = px.histogram(df, x="words").update_xaxes(categoryorder="total descending")
+    fig.show()
