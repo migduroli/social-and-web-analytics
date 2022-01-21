@@ -114,8 +114,8 @@ def tweet(
 
 
 def get_user_id(
-    user_name: str,
-    user_auth: OAuth1Auth,
+        user_name: str,
+        user_auth: OAuth1Auth,
 ):
     url = f"{BASE_API_URL_V2}/users/by/username/{user_name}"
     result = SESSION.get(
@@ -127,9 +127,9 @@ def get_user_id(
 
 
 def get_user_followers(
-    user_id: str,
-    user_auth: OAuth1Auth,
-    max_results: None,
+        user_id: str,
+        user_auth: OAuth1Auth,
+        max_results: None,
 ):
     url = f"{BASE_API_URL_V2}/users/{user_id}/followers"
 
@@ -152,46 +152,48 @@ app_auth = get_app_auth(
     access_token=credentials["BEARER_TOKEN"],
 )
 
-id_list = ["1261326399320715264"]
-tweets = get_tweets(ids=id_list, auth=app_auth)
 
-# Now you can explore the results of this search:
-# tweets["data"]
+if __name__ == "__main__":
+    id_list = ["1261326399320715264"]
+    tweets = get_tweets(ids=id_list, auth=app_auth)
 
-# Example of a more complex query:
-query_text = {"query": '"learn python" lang:en',
-              "tweet.fields": "id,author_id,geo,lang,public_metrics",
-              "max_results": 50}
+    # Now you can explore the results of this search:
+    # tweets["data"]
 
-tweets = search_tweets(query=query_text, auth=app_auth)
+    # Example of a more complex query:
+    query_text = {"query": '"learn python" lang:en',
+                  "tweet.fields": "id,author_id,geo,lang,public_metrics",
+                  "max_results": 50}
 
-# As in the previous case, we can now explore the results:
-# tweets["data"]
+    tweets = search_tweets(query=query_text, auth=app_auth)
 
-user_auth = get_user_auth(
-    consumer_key=credentials["CONSUMER_KEY"],
-    consumer_secret=credentials["CONSUMER_SECRET"],
-    access_token=credentials["ACCESS_TOKEN"],
-    access_secret=credentials["ACCESS_SECRET"],
-)
+    # As in the previous case, we can now explore the results:
+    # tweets["data"]
 
-tweet_post = {"text": "hello world!"}
+    user_auth = get_user_auth(
+        consumer_key=credentials["CONSUMER_KEY"],
+        consumer_secret=credentials["CONSUMER_SECRET"],
+        access_token=credentials["ACCESS_TOKEN"],
+        access_secret=credentials["ACCESS_SECRET"],
+    )
 
-# create tweet:
-c_resp = tweet(
-    action=TweetAction.POST,
-    data=tweet_post,
-    auth=user_auth,
-)
+    tweet_post = {"text": "hello world!"}
 
-# Now check your twitter account!
+    # create tweet:
+    c_resp = tweet(
+        action=TweetAction.POST,
+        data=tweet_post,
+        auth=user_auth,
+    )
 
-# delete tweet:
-tweet_id = c_resp["data"]["id"]
-d_resp = tweet(
-    action=TweetAction.DELETE,
-    id=tweet_id,
-    auth=user_auth,
-)
+    # Now check your twitter account!
 
-# Now check your twitter account!
+    # delete tweet:
+    tweet_id = c_resp["data"]["id"]
+    d_resp = tweet(
+        action=TweetAction.DELETE,
+        id=tweet_id,
+        auth=user_auth,
+    )
+
+    # Now check your twitter account!
