@@ -18,7 +18,7 @@ siguiente índice de contenidos:
     - [Entorno de trabajo](01-introduction/README.md)
     - [Breve introducción a Python](01-introduction/python-review)
 
-2. Recopilación de información de redes sociales
+2. [Recopilación de información de redes sociales](02-social-data-collection)
       
     - APIs: Tipos, autenticación, conexión y limitaciones
     - Análisis de las respuestas de APIs
