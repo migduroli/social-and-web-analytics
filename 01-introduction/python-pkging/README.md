@@ -92,7 +92,7 @@ def get_weather_conditions(city_name: str) -> dict:
     return data
 ```
 
-So, our code in the next Jupyter block could be:
+Así, el bloque de nuestro Jupyter notebook podría ser algo como:
 ```python
 data = {}
 city_names = ["madrid", "paris", "rome", "nocitywiththisname"]
@@ -100,7 +100,7 @@ for city in city_names:
     result = get_weather_conditions(city_name=city)
     data = {**data, **result}
 ```
-which gives the expected results:
+lo cual produce el resultado deseado (y esperado):
 ```json
 {
   "madrid": "Weather report: madrid\\n\\n...",
@@ -109,5 +109,6 @@ which gives the expected results:
   "nocitywiththisname": null
 }
 ```
+
 
 ### Metodología 
