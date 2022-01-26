@@ -31,10 +31,12 @@ por ende, buscan eliminar esta posibilidad (*free lunch*).
 
 Con esta pequeña introducción en mente, en este capítulo vamos a ver:
 
-- [APIs: Tipos, autenticación, conexión y limitaciones](apis)
+- [APIs: Tipos, autenticación, conexión y limitaciones](#apis-tipos-autenticación-conexión-y-limitaciones-apis)
 - [Análisis de las respuestas de APIs]()
 - [Limpieza y almacenamiento]()
 - [Medición, recopilación y análisis de los datos...]()
 
 
-### <a name="apis"></a> APIs: Tipos, autenticación, conexión y limitaciones
+### APIs: Tipos, autenticación, conexión y limitaciones
+
+
