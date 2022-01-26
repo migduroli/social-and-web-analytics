@@ -39,4 +39,63 @@ Con esta pequeña introducción en mente, en este capítulo vamos a ver:
 
 ### APIs: Tipos, autenticación, conexión y limitaciones
 
+Para una discusión formal sobre la definición de API, referimos al siguiente [enlace](https://www.redhat.com/en/topics/api/what-are-application-programming-interfaces).
+En esta sección vamos a ser bastante más prácticos, y por ello vamos a adoptar la definición
+práctica:
 
+> *Una API es un medio de comunicación de información entre un servidor (el servicio) y el
+cliente (usuario, desarrollador, u otro servicio)*.
+
+Como podemos comprobar, la definición es bastante genérica, y es que una API no es un
+protocolo sino un *medio* de comunicación, y por tanto cada API tiene su propia forma 
+(*modelo*) de representar/exponer la información intercambiada. En el fondo, una API
+se puede entender como un contrato entre el cliente y el servidor, donde el acuerdo 
+establecido entre las partes suele estar recogido en forma de documentación técnica.
+En el caso de redes sociales como Twitter, o Facebook, veremos que dicha documentación
+es pública y tiene su propia web:
+
+- Documentación API Twitter: [Twitter API](https://developer.twitter.com/en/docs/twitter-api) 
+- Documentación API Facebook: [Graph API](https://developers.facebook.com/docs/graph-api/)
+
+La diferente naturaleza de los datos subyacentes, así como del propio servicio, implica
+de forma directa diferentes APIs, ya que cada una tiene su diseño (*diseño de software*)
+para representar sus datos de la forma que más le conviene a cada proveedor.
+A su vez, la información servida vía API raramente es apta para el análisis directamente, 
+lo que normalmente requerirá un post-porcesado de la misma, y por ende su almacenamiento
+para su posterior explotación. Todo ello hace que el proceso de recolección de datos
+no sea todo lo generalizable como gustaría, además de convertir esta etapa en una
+de las más tediosas, aunque también entretenida.
+
+#### Tipos de APIs
+En 2022, podemos decir que existen básicamente dos tipos de APIs:
+
+- RESTful API (*estáticas*)
+- Steaming API
+
+*REST* proviene de la definición inglesa: *Representational State Transfer*, una 
+arquitectura de diseño de API que impone una política de mínimos en cuanto a 
+acuerdo cliente-servidor, y es por ello por lo que se ha hecho tan popular, por
+su flexibilidad. Estos mínimos que debe cumplir una API para considerarse 
+RESTful son ([referencia](https://www.redhat.com/es/topics/api/what-are-application-programming-interfaces)):
+ 
+- Arquitectura cliente-servidor, y administración de solicitudes con protocolo `HTTP`.
+
+- Sistema sin estado (*Stateless*): la información sobre el estado de la sesión es responsabilidad del cliente
+
+- Capacidad de almacenamiento en caché
+
+- Sistema en capas: Las interacciones cliente-servidor pueden estar mediadas por capas adicionales. Estas capas pueden ofrecer funcionalidades adicionales, e.g. seguridad, balanceador de carga, o cachés compartidas.
+
+- Código disponible según se solicite (opcional)
+  
+- Interfaz uniforme: Fundamental para el diseño, y requiere de:
+    - Identificación de los recursos en las solicitudes, y separación de las representaciones devueltas al cliente
+    - Gestión de recursos mediante representaciones
+    - Respuestas autodescriptivas
+    - Debe contener hipertexto o hipervínculos que permita al cliente conocer las acciones disponibles a posteriri de la respuesta
+
+El incremento del uso de APIs ha hecho necesaria la definición de estándares
+mínimos. A día de hoy, el estándar *de facto* que se ha propagado exponencialmente
+en la comunidad es [**OpenAPI Specification**](https://swagger.io/specification/) 
+(OAS) el cual define un estándar para el diseño de APIs tipo RESTful agnóstico al
+lenguaje de programación. 
