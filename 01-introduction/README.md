@@ -202,7 +202,7 @@ Successfully installed MarkupSafe-2.0.1 Send2Trash-1.8.0 appnope-0.1.2 argon2-cf
  typing-extensions-4.0.1 wcwidth-0.2.5 webencodings-0.5.1 zipp-3.7.0
 ```
 
-🥳 Enhorabuena! ya tienes instalado Jupyter Notebooks.  
+🥳 Enhorabuena! ya tienes instalado Jupyter Notebook.  
 
 Ahora ya podemos empezar a crear nuestro primer *Jupyter Notebook*, para lo cual podemos 
 proceder del modo estándar, i.e.:
@@ -240,3 +240,9 @@ sys.version
 ```
 y ejecutar el bloque, deberíamos obtener `3.8.12` (a día 14/Enero/2022).
 El notebook creado con susodicho bloque de código se puede ver [aquí](_output/example-nb.ipynb).
+
+## Introducción-revisión de Python
+
+Ahora que ya tenemos establecido nuestro entorno de trabajo, puedes poner a prueba
+tu conocimiento de `Python` repasando los conceptos presentados en el siguiente
+[Jupyter Notebook](python-review/python-review.ipynb)
