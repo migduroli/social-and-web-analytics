@@ -11,7 +11,7 @@ Los tópicos a tratar en este curso, tanto de forma teórica como práctica se a
 siguiente índice de contenidos:
 
 
-1. Introducción al panorama actual de la web y redes sociales 
+1. [Introducción al panorama actual de la web y redes sociales](01-introduction) 
    
     - Datos sociales y de la web
     - Proceso de explotación datos

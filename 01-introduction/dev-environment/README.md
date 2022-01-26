@@ -212,15 +212,15 @@ proceder del modo estándar, i.e.:
 Lo que nos abrirá una ventana en nuestro explorador web, mostrando el árbol del directorio
 donde hemos ejecutado el comando:
 
-![jupyter-notebook-landing-page](_img/jupyter-landing.png "Landing page")
+![jupyter-notebook-landing-page](../_img/jupyter-landing.png "Landing page")
 
 A posteriori, solo tenemos que hacer click en `New` > `Python 3 (ipykernel)`:
 
-![jupyter-notebook-create](_img/create-new-ipynb.png "Landing page")
+![jupyter-notebook-create](../_img/create-new-ipynb.png "Landing page")
 
 Lo que finalmente nos llevará al notebook:
 
-![jupyter-notebook-create](_img/jupyter-nb-new.png "New notebook")
+![jupyter-notebook-create](../_img/jupyter-nb-new.png "New notebook")
 
 Y con esto tendremos creado y guardado nuestro primer fichero `.ipynb` (jupyter notebook).
 Para hacer esta tarea menos tediosa y más directa a nivel programático, se puede usar el
@@ -239,10 +239,10 @@ import sys
 sys.version
 ```
 y ejecutar el bloque, deberíamos obtener `3.8.12` (a día 14/Enero/2022).
-El notebook creado con susodicho bloque de código se puede ver [aquí](_output/example-nb.ipynb).
+El notebook creado con susodicho bloque de código se puede ver [aquí](../_output/example-nb.ipynb).
 
 ## Introducción-revisión de Python
 
 Ahora que ya tenemos establecido nuestro entorno de trabajo, puedes poner a prueba
 tu conocimiento de `Python` repasando los conceptos presentados en el siguiente
-[Jupyter Notebook](python-review/python-review.ipynb)
+[Jupyter Notebook](../python-review/python-review.ipynb)
