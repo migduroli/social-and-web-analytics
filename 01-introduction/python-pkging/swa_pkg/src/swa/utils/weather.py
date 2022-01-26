@@ -2,6 +2,7 @@ import requests
 
 # To know more about the weather URL: "https://wttr.in/:help
 WEATHER_URL = "https://wttr.in/"
+DEFAULT_CITY = "madrid"
 
 
 def get_weather_conditions(city_name: str) -> dict:
