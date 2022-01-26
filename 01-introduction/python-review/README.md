@@ -1,4 +1,4 @@
-## Revisión de Python & Empaquetado de código
+## Introducción-revisión de Python
 
 En este módulo encontrarás una revisión de los conceptos de `Python` más relevantes 
 para el desarrollo del curso. Esta introducción-revisión la hemos presentado en 
