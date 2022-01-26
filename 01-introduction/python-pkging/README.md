@@ -271,3 +271,10 @@ Installing collected packages: swa
   Running setup.py develop for swa
 Successfully installed swa-1.0.0
 ```
+
+### Como usar la librería en Jupyter
+Ahora simplemente tenemos que abrir un nuevo notebook y usar nuestra librería.
+Para ver un ejemplo de cómo quedaría finalmente, puedes usar el Jupyter notebook
+dentro de [examples](swa_pkg/examples/nb_pkg.ipynb):
+
+![jupyter-notebook-with-package](../_img/jupyter-swa-pkg-example.png)
