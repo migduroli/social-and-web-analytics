@@ -80,19 +80,24 @@ RESTful son ([referencia](https://www.redhat.com/es/topics/api/what-are-applicat
  
 - Arquitectura cliente-servidor, y administración de solicitudes con protocolo `HTTP`.
 
-- Sistema sin estado (*Stateless*): la información sobre el estado de la sesión es responsabilidad del cliente
+- Sistema sin estado (*Stateless*): la información sobre el estado de la sesión es 
+  responsabilidad del cliente
 
 - Capacidad de almacenamiento en caché
 
-- Sistema en capas: Las interacciones cliente-servidor pueden estar mediadas por capas adicionales. Estas capas pueden ofrecer funcionalidades adicionales, e.g. seguridad, balanceador de carga, o cachés compartidas.
+- Sistema en capas: Las interacciones cliente-servidor pueden estar mediadas por capas
+  adicionales. Estas capas pueden ofrecer funcionalidades adicionales, 
+  e.g. seguridad, balanceador de carga, o cachés compartidas.
 
 - Código disponible según se solicite (opcional)
   
 - Interfaz uniforme: Fundamental para el diseño, y requiere de:
-    - Identificación de los recursos en las solicitudes, y separación de las representaciones devueltas al cliente
+    - Identificación de los recursos en las solicitudes, y separación de las representaciones
+      devueltas al cliente
     - Gestión de recursos mediante representaciones
     - Respuestas autodescriptivas
-    - Debe contener hipertexto o hipervínculos que permita al cliente conocer las acciones disponibles a posteriri de la respuesta
+    - Debe contener hipertexto o hipervínculos que permita al cliente conocer las acciones 
+      disponibles a posteriri de la respuesta
 
 El incremento del uso de APIs ha hecho necesaria la definición de estándares
 mínimos. A día de hoy, el estándar *de facto* que se ha propagado exponencialmente
