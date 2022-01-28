@@ -73,10 +73,14 @@ YOUTUBERS = [
     "Makiman131",
 ]
 
+channel_data = []
 for user_name in YOUTUBERS:
-    data = youtube.channels().list(
-        part="id,snippet,statistics",
-        forUsername="elrubiusOMG"
-    ).execute()["items"]
-
-    channel_data = data["items"][0]
+    try:
+        data = youtube.channels().list(
+            part="id,snippet,statistics",
+            forUsername=user_name,
+        ).execute()["items"]
+        channel_data += data
+        print(f"user: {user_name} => subscribers: {data[0]['statistics']['subscriberCount']}")
+    except:
+        print(f"No data found: {user_name}")
