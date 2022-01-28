@@ -23,13 +23,13 @@ fig.show()
 
 pytrends.get_historical_interest(
     kw_list,
-    year_start=2021,
-    month_start=9,
+    year_start=2022,
+    month_start=1,
     day_start=1,
     hour_start=0,
     year_end=2022,
-    month_end=9,
-    day_end=30,
+    month_end=1,
+    day_end=10,
     hour_end=0,
     cat=0,
     sleep=0
