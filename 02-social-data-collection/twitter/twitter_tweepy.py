@@ -131,3 +131,29 @@ def example_histogram(tweets: list):
     df = pd.DataFrame({"words": words})
     fig = px.histogram(df, x="words").update_xaxes(categoryorder="total descending")
     fig.show()
+
+
+def example_v2_timeline(
+        id: str = "398306220",
+        tweet_fields: list = [
+            "id",
+            "created_at",
+            "public_metrics",
+            # "context_annotations",
+        ],
+        max_results: int = 50,
+        max_items: int = 150,
+        start_time=(datetime.datetime.now(datetime.timezone.utc)
+                    - datetime.timedelta(days=7)),
+):
+    tweets = [
+        tweet
+        for tweet in tweepy.Paginator(
+            API_V2.get_users_tweets,
+            id=id,
+            start_time=start_time.strftime("%Y-%m-%dT00:00:00+00:00"),
+            tweet_fields=tweet_fields,
+            max_results=max_results).flatten(limit=max_items)
+    ]
+
+    return tweets
