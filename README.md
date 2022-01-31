@@ -3,7 +3,7 @@
 Este repositorio contiene el material práctico impartido en el curso de 
 Analítica Social y de la Web  (*Social and Web Analytics*) que se imparte en el cuarto
 curso del Grado en Análisis de Negocios/Business Analytics en la Universidad 
-Pontificia de Comillas.
+Pontificia Comillas.
 
 ## Índice de contenidos
 
