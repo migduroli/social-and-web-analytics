@@ -37,10 +37,11 @@ Con esta pequeña introducción en mente, en este capítulo vamos a ver:
 - [Medición, recopilación y análisis de los datos...]()
 
 
-### APIs: Tipos, autenticación, conexión y limitaciones
+### APIs: Tipos, ventajas e inconvenientes, autenticación y conexión
 
-Para una discusión formal sobre la definición de API, referimos al siguiente [enlace](https://www.redhat.com/en/topics/api/what-are-application-programming-interfaces).
-En esta sección vamos a ser bastante más prácticos, y por ello vamos a adoptar la definición
+Para una discusión formal sobre la definición de API, aconsejamos consultar el siguiente
+[enlace](https://www.redhat.com/en/topics/api/what-are-application-programming-interfaces).
+En este documento vamos a ser bastante más prácticos, y por ello vamos a adoptar la definición
 práctica:
 
 > *Una API es un medio de comunicación de información entre un servidor (el servicio) y el
@@ -179,6 +180,34 @@ considerados cuando se diseña una solución:
   del tiempo. Es por ello que necesitamos ser conocedores (expertos) del marco legal
   en el que nos movemos en cada momento antes de proceder al uso de cualquier dato para 
   no incurrir en ninguna violación de los términos acordados.
-  
 
-  
+
+#### Autenticación y conexión
+
+A la hora de trabajar con APIs es inevitable que nos topemos con alguna forma de 
+autenticación, mediante la cual el servidor nos reconocerá (o no) y permitirá la petición
+y acceso de datos correspondientes. El conocimiento profundo de cada una de las posibles
+técnicas de autenticación existentes va más allá del objetivo de este curso. Para 
+aquellos que quieran tener un conocimiento más detallado de esquemas de autenticación
+como:
+
+- `Basic Auth`: [link](https://en.wikipedia.org/wiki/Basic_access_authentication)
+- `API keys`: [link](https://en.wikipedia.org/wiki/Application_programming_interface_key)
+- `Bearer Authentication`: [link](https://swagger.io/docs/specification/authentication/bearer-authentication/)
+- `Oauth 1.0` o `Oauth 2.0`: [link](https://en.wikipedia.org/wiki/OAuth)
+- `OpenID Connect Discovery (OIDCD)`: [link](https://openid.net/specs/openid-connect-discovery-1_0.html)
+- `Cookie Authentication`: [link](https://en.wikipedia.org/wiki/HTTP_cookie)
+
+Recomendamos consultar el siguiente [link](https://swagger.io/docs/specification/authentication/).
+A continuación comentamos brevemente algunas de estos esquemas, de los cuales, los más 
+usados en este curso serán `API keys`, `Bearer Authentication` y `Oauth`.
+
+##### Basic Auth
+`Basic Auth` es un esquema de autenticación simple integrado en el protocolo HTTP. 
+El cliente envía solicitudes HTTP con el encabezado de autorización (`Authorization` header)
+que contiene la palabra `Basic` seguida de un espacio y una cadena codificada en `base64`, 
+`username:password`. Por ejemplo, para autenticarse como usuario `demo` y password
+`p@55w0rd` el cliente tendrá que enviar el siguiente encabezado:
+```shell
+Authorization: Basic ZGVtbzpwQDU1dzByZA==
+```
