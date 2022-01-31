@@ -38,7 +38,8 @@ API_V2 = tweepy.Client(
     consumer_key=CREDS["CONSUMER_KEY"],
     consumer_secret=CREDS["CONSUMER_SECRET"],
     access_token=CREDS["ACCESS_TOKEN"],
-    access_token_secret=CREDS["ACCESS_SECRET"]
+    access_token_secret=CREDS["ACCESS_SECRET"],
+    wait_on_rate_limit=True,
 )
 
 
@@ -157,3 +158,19 @@ def example_v2_timeline(
     ]
 
     return tweets
+
+
+def example_v2_followers(
+        user_id: str = "398306220",
+        max_results: int = 50,
+        max_items: int = 150,
+):
+    followers = [
+        tweet
+        for tweet in tweepy.Paginator(
+            API_V2.get_users_followers,
+            id=user_id,
+            max_results=max_results).flatten(limit=max_items)
+    ]
+
+    return followers
