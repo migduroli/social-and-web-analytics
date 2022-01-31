@@ -211,3 +211,11 @@ que contiene la palabra `Basic` seguida de un espacio y una cadena codificada en
 ```shell
 Authorization: Basic ZGVtbzpwQDU1dzByZA==
 ```
+Para hacer una petición a un servidor con el *header* anterior, usando [cURL], procederíamos
+como sigue:
+```shell
+> curl \
+ --request GET \
+ --header 'Authorization: Basic ZGVtbzpwQDU1dzByZA==' \
+ THE_SERVER_URL_HERE
+```
