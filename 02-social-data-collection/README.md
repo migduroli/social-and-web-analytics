@@ -126,3 +126,59 @@ Otra gran diferencia con respecto a REST que merece ser mencionada es que una AP
 es mucho menos flexible que una API REST.
 
 ![rest-vs-streaming](_img/rest-vs-streaming.png)
+
+
+#### Ventajas e inconvenientes de las APIs
+
+La pregunta natural que puede surgir a estas alturas es: ¿Qué ventajas representa el uso 
+de APIs en el contexto de la analítica social y de la web?
+
+##### Ventajas de las APIs 
+
+Entre otras muchas, podemos destacar las siguientes ventajas:
+
+- Representan una forma *sencilla* de *extracción* de datos (desde el punto 
+  de vista del cliente) en cualquier etapa del análisis, bien sea en *discovery*, en
+  *desarrollo*, o en *producción*
+- Permiten la *automatización* de las labores de extracción y enriquecimiento de datos,
+  ya que están diseñadas para la comunicación entre máquinas
+- Existe una gran variedad de APIs de las que podemos obtener distintas representaciones 
+  de un mismo *objeto* (por ejemplo un perfil de Twitter), las cuales podemos conjugar 
+  programáticamente para obtener una representación más completa (*Aditividad*)  
+
+##### Inconvenientes de las APIs 
+
+Por otra parte, las APIs no solo conllevan ventajas, sino que también tienen sus propios
+inconvenientes. A continuación listamos algunos de los más notables, que han de ser 
+considerados cuando se diseña una solución:
+
+- *Limites* de consultas: Toda API que encontremos en el mercado va a tener un límite de 
+  consultas (o *quota*) y/o velocidad de descarga. La explicación es bastante lógica,
+  una compañía que expone sus datos vía APIs tiene que poner controles sobre los datos
+  que entran/salen de su plataforma, así como evitar que un "consumidor" muy exigente ponga
+  en peligro la plataforma por saturación. Cada API tendrá sus *quotas*, y por ello es 
+  muy aconsejable tenerlas en cuenta a la hora de diseñar una estrategia de extracción
+  de datos.
+  
+- *Refactorizaciones* de la API: Este representa uno de los *inconvenientes* a la hora de 
+  desarrollar una aplicación de analítica que necesite del uso de APIs. Suele ocurrir, 
+  más habitualmente de lo que gustaría al cliente, que la API con la que se comienza el 
+  desarrollo de una herramienta no sea la misma unos meses después de iniciar el desarrollo.
+  Esto se debe a razones muy variadas, desde cambios estratégicos en la compañía que 
+  expone la API, o cambios de diseño para mejorar la experiencia de usuarios, etc. 
+  En definitiva, esto suele conllevar que nuestro código también tenga que cambiar para
+  adaptarse a los nuevos *endpoints*, o a los nuevos modelos de repuesta. Uno de los cambios
+  más notados es el que se está sufriendo a día de hoy (`Enero de 2022`) en la API de 
+  Twitter ([v1.1](https://developer.twitter.com/en/docs/twitter-api/v1) vs 
+  [v2](https://developer.twitter.com/en/docs/twitter-api/data-dictionary/introduction)),
+  la cual ha sido reformulada desde cero, no manteniendo compatibilidad en el modelo de
+  datos con la versión anterior.
+  
+- *Legalidad*: Las normas establecidas para el uso de los datos obtenidos por cada API 
+  pueden ser muy dispares. Además, dichas restricciones legales pueden cambiar a lo largo
+  del tiempo. Es por ello que necesitamos ser conocedores (expertos) del marco legal
+  en el que nos movemos en cada momento antes de proceder al uso de cualquier dato para 
+  no incurrir en ninguna violación de los términos acordados.
+  
+
+  
