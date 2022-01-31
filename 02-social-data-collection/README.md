@@ -72,7 +72,8 @@ En 2022, podemos decir que existen básicamente dos tipos de APIs:
 - RESTful API (*estáticas*)
 - Steaming API
 
-*REST* proviene de la definición inglesa: *Representational State Transfer*, una 
+##### RESTful APIs
+REST proviene de la definición inglesa: *Representational State Transfer*, una 
 arquitectura de diseño de API que impone una política de mínimos en cuanto a 
 acuerdo cliente-servidor, y es por ello por lo que se ha hecho tan popular, por
 su flexibilidad. Estos mínimos que debe cumplir una API para considerarse 
@@ -103,4 +104,25 @@ El incremento del uso de APIs ha hecho necesaria la definición de estándares
 mínimos. A día de hoy, el estándar *de facto* que se ha propagado exponencialmente
 en la comunidad es [**OpenAPI Specification**](https://swagger.io/specification/) 
 (OAS) el cual define un estándar para el diseño de APIs tipo RESTful agnóstico al
-lenguaje de programación. 
+lenguaje de programación.
+
+##### Steaming APIs
+
+Las APIs de *streaming* constituyen casi el opuesto de REST.
+En esencia, una API de streaming invierte el orden de la comunicación con respecto
+a REST. En lugar de tratarse de una comunicación iniciada por una petición de cliente,
+que es respondida por el servidor, en *streaming* el servidor está continuamente (más 
+específicamente, cada vez que hay una actualización subyacente) enviando información
+al cliente. Por hacer un análogo práctico, mientras que REST se puede entender como una
+conversación entre dos personas, en la que una pregunta y la otra responde, el Streaming
+es algo más similar a comprar una entrada de cine y sentarse a ver la película (recibir 
+información de manera pasiva). Se trata de una inversión total del paradigma REST.
+Además, en streaming la API no es *stateless*, más bien al contrario, es una comunicación
+*stateful*. ¿Qué significa esto en la práctica? Esto normalmente se materializa en forma 
+de una conexión persistente con el servidor *streaming* en cuestión (cierto es que dichas 
+conexiones suelen tener un *tiempo de vida* finito), y es durante esta conexión cuando el 
+contenido es enviado desde el servidor al cliente.
+Otra gran diferencia con respecto a REST que merece ser mencionada es que una API de streaming
+es mucho menos flexible que una API REST.
+
+![rest-vs-streaming](_img/rest-vs-streaming.png)
