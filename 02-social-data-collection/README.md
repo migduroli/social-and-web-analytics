@@ -217,5 +217,43 @@ como sigue:
 > curl \
  --request GET \
  --header 'Authorization: Basic ZGVtbzpwQDU1dzByZA==' \
- THE_SERVER_URL_HERE
+ ${SERVER_URL}/sample-endpoint
+```
+
+##### API Keys
+
+En otros casos, la autenticación ocurre mediante un *TOKEN* que es intercambiado con el 
+servidor, bien mediante `query string`, es decir añadiéndose el *TOKEN* a la URL:
+```shell
+> curl --request GET ${SERVER_URL}/sample-endpoint?api_key=abcdef12345
+```
+o bien como header:
+```shell
+> curl \
+  --request GET \
+  --http1.1 \
+  --header 'X-API-Key: abcdef12345' 
+  ${SERVER_URL}/sample-endpoint
+```
+o bien como *cookie*:
+```shell
+> curl \
+  --request GET \
+  --http1.1 \
+  --cookie 'Cookie: X-API-KEY=abcdef12345' 
+  ${SERVER_URL}/sample-endpoint
+```
+
+##### Bearer Token
+
+En el caso de autenticación por TOKEN al portador (*Bearer Token*)
+se usan tokens de seguridad, normalmente generados por el servidor, que dan acceso a aquél
+que "porte" dicho *TOKEN*. Así, este tipo de autenticación se puede entender
+como "dar acceso al portador de un este token". 
+El token al portador es una cadena de caracteres encriptada, 
+generalmente generada por el servidor en respuesta a una solicitud de
+inicio de sesión. El cliente debe enviar este token en el encabezado de
+autenticación al realizar peticiones:
+
+```shell
 ```
