@@ -371,7 +371,7 @@ de tipo `GET`.
 #### Demostraciones práctica de conexión y uso de APIs
 
 - [Twitter](twitter/README.md): 
-    - [Atacando la API sin librerías](twitter/twitter-api-v2-raw.ipynb)
+    - [Usando la API sin librerías](twitter/twitter-api-v2-raw.ipynb)
     - [Usando la librería tweepy](twitter/twitter-api-v2-tweepy.ipynb)
     
 - [Youtube](youtube/README.md):
