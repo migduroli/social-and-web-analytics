@@ -194,7 +194,7 @@ como:
 - `Basic Auth`: [link](https://en.wikipedia.org/wiki/Basic_access_authentication)
 - `API keys`: [link](https://en.wikipedia.org/wiki/Application_programming_interface_key)
 - `Bearer Authentication`: [link](https://swagger.io/docs/specification/authentication/bearer-authentication/)
-- `Oauth 1.0` o `Oauth 2.0`: [link](https://en.wikipedia.org/wiki/OAuth)
+- `OAuth 1.0` o `OAuth 2.0`: [link](https://en.wikipedia.org/wiki/OAuth)
 - `OpenID Connect Discovery (OIDCD)`: [link](https://openid.net/specs/openid-connect-discovery-1_0.html)
 - `Cookie Authentication`: [link](https://en.wikipedia.org/wiki/HTTP_cookie)
 
@@ -214,9 +214,9 @@ Authorization: Basic ZGVtbzpwQDU1dzByZA==
 Para hacer una petición a un servidor con el *header* anterior, usando [cURL], procederíamos
 como sigue:
 ```shell
-> curl \
+> curl ${SERVER_URL}/sample-endpoint \
  --request GET \
- --header 'Authorization: Basic ZGVtbzpwQDU1dzByZA==' \
+ --header "Authorization: Basic ZGVtbzpwQDU1dzByZA==" \
  ${SERVER_URL}/sample-endpoint
 ```
 
@@ -229,31 +229,51 @@ servidor, bien mediante `query string`, es decir añadiéndose el *TOKEN* a la U
 ```
 o bien como header:
 ```shell
-> curl \
+> curl ${SERVER_URL}/sample-endpoint \
   --request GET \
   --http1.1 \
-  --header 'X-API-Key: abcdef12345' 
-  ${SERVER_URL}/sample-endpoint
+  --header "X-API-Key: abcdef12345"
 ```
 o bien como *cookie*:
 ```shell
-> curl \
+> curl ${SERVER_URL}/sample-endpoint \
   --request GET \
   --http1.1 \
-  --cookie 'Cookie: X-API-KEY=abcdef12345' 
-  ${SERVER_URL}/sample-endpoint
+  --cookie "Cookie: X-API-KEY=abcdef12345"
 ```
 
 ##### Bearer Token
 
-En el caso de autenticación por TOKEN al portador (*Bearer Token*)
+En el caso de autenticación por *token* al portador (*Bearer Token*)
 se usan tokens de seguridad, normalmente generados por el servidor, que dan acceso a aquél
-que "porte" dicho *TOKEN*. Así, este tipo de autenticación se puede entender
+que "porte" dicho token. Así, este tipo de autenticación se puede entender
 como "dar acceso al portador de un este token". 
 El token al portador es una cadena de caracteres encriptada, 
 generalmente generada por el servidor en respuesta a una solicitud de
 inicio de sesión. El cliente debe enviar este token en el encabezado de
-autenticación al realizar peticiones:
+autenticación al realizar peticiones. Imaginemos que el servidor nos
+ha facilitado el token `AbCdEf123456`, procederíamos de la siguiente
+forma:
 
 ```shell
+curl ${SERVER_URL}/sample-endpoint \
+   --header "Accept: application/json"
+   --header "Authorization: Bearer AbCdEf123456"
 ```
+
+##### OAuth 1.0 y 2.0
+
+OAuth (*Open Authorization*) es un protocolo estándar de autorización en el que
+se le garantiza acceso limitado a los datos en servidor a un cliente API.
+Es el mecanismo de autenticación preferido por grandes compañías tecnológicas
+como Google, Amazon, Facebook, Microsoft o Twitter para permitir a los usuarios
+de sus plataformas el compartir datos de sus cuentas con aplicaciones de terceros
+u otras webs.
+
+Para entender el flujo de OAuth, y su necesidad, podemos echar un vistazo a estas
+dos imágenes de wikipedia:
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Without-oauth.png/600px-Without-oauth.png" alt="drawing" width="200"/>
+
+
+
