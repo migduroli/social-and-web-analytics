@@ -271,9 +271,66 @@ de sus plataformas el compartir datos de sus cuentas con aplicaciones de tercero
 u otras webs.
 
 Para entender el flujo de OAuth, y su necesidad, podemos echar un vistazo a estas
-dos imágenes de wikipedia:
+dos imágenes de [wikipedia](https://en.wikipedia.org/wiki/OAuth):
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Without-oauth.png/600px-Without-oauth.png" alt="drawing" width="200"/>
+- Situación hipotética en la que se comparte información de *login* del usuario con una 
+  aplicación de un tercero para acceder a cierta información del usuario:
+  
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Without-oauth.png/600px-Without-oauth.png" 
+alt="3rd party authorization, security flaw" width="400"/>
+  
+  Evidentemente, esto supone un riesgo serio de ciberseguridad, que puede ser evitado
+  mediante el uso de un flujo de autenticación OAuth (a continuación).
+  
+- Flujo de autenticación OAuth: Las credenciales del usuario se usan solo 
+  en el servidor de autorización, y no en el cliente (por ejemplo, la aplicación de un 
+  tercero):
+  
+  <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Abstract-flow.png" alt="Flujo OAuth" width="400"/>
 
+Los diferentes flujos de OAuth v1.0 u v2.0 se puede encontrar en los siguientes enlaces:
+
+- Flujo v1.0: [link](https://oauth.net/core/1.0/); [link2](https://albertomolina.wordpress.com/2013/05/11/utilizacion-paso-a-paso-de-oauth-1-0-en-twitter-con-python-bottle/)
+- Flujo v2.0: [link](https://www.soapui.org/docs/oauth2/oauth2-overview/); [link2](https://developers.google.com/youtube/v3/guides/auth/server-side-web-apps?hl=es)
+
+Un ejemplo práctico de cómo este flujo de autenticación ocurre puede verse en este
+[link](https://developers.google.com/identity/protocols/oauth2) sobre el uso de OAuth 2.0
+para el acceso a las APIs de Google.
+
+
+Finalmente, cabe mencionar que existen dos tipos básicos de autenticación con OAuth: 
+autenticación tipo `user` (usuario), y tipo `app` (aplicación). En el primero de los casos,
+es decir, tipo `user`, se garantiza al cliente de la API no solo para el uso de los datos
+del usuario, sino para actuar en su nombre. En el segundo de los casos, la aplicación está 
+autorizada a un uso limitado de la API, y a actuar en su propio nombre, nunca en el nombre
+del usuario. 
+
+En el escenario que nos concierne, lo más normal será usar `App Authentication` 
+ya que estamos interesados en extraer datos, no en modificar el estado del usuario.
+Como veremos en el caso de [Twitter](https://developer.twitter.com/), el procedimiento
+habitual para poner en funcionamiento una autorización `OAuth` de este tipo requerirá
+normalmente los siguientes pasos:
+
+1. Crear una **cuenta de desarrollador** en la plataforma.
+   
+2. Crear una **aplicación** en la plataforma de desarrollador. Esta aplicación será a la 
+   que autorizaremos para hacer consultas de nuestros datos mediante las APIs de la 
+   plataforma.
+   
+3. **Generar** los **tokens** de acceso. Este paso requiere la salvaguarda de los tokens 
+   en un lugar seguro. Normalmente guardaremos estas claves en un fichero tipo `JSON`.
+   
+4. [Opcional] **Autenticar** las peticiones HTTP. Algunas APIs requerirán que además 
+   autoricemos las peticiones HTTP mediante una cabecera (típicamente `Bearer Token`).
+   
+5. [Opcional] **Seleccionar los permisos** correctos. Algunas APIs están desarrolladas con
+   el concepto de permisos multicapa/multinivel. Si es así, nos solicitarán 
+   determinar el ámbito (*scope*) de validez de la clave, donde ámbito/scope no es más que
+   un conjunto de acciones. Esta granularidad de permisos permite controlar muy bien 
+   cualquier fuga indeseada, ya que si la aplicación intentase acceder mediante a un método 
+   que no está en el ámbito en el que está autorizada, se le rechazará la petición.
+   
+6. **Conectar** con la API con los credenciales obtenidos, una vez los pasos anteriores 
+   han sido satisfactoriamente. 
 
 
