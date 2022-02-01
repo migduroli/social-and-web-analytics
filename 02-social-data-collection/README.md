@@ -32,10 +32,11 @@ por ende, buscan eliminar esta posibilidad (*free lunch*).
 Con esta pequeña introducción en mente, en este capítulo vamos a ver:
 
 - [APIs: Tipos, autenticación, conexión y limitaciones](#apis-tipos-autenticación-conexión-y-limitaciones-apis)
-- [Análisis de las respuestas de APIs]()
-- [Limpieza y almacenamiento]()
+- [Análisis de las respuestas de APIs](#análisis-de-las-respuestas-de-apis)
+- [Limpieza y almacenamiento](#limpieza-y-almacenamiento)
+<!--
 - [Medición, recopilación y análisis de los datos...]()
-
+-->
 
 ### APIs: Tipos, ventajas e inconvenientes, autenticación y conexión
 
@@ -366,3 +367,18 @@ hemos dejado como un ejemplo genérico: `http://the-api-url.com/`) usando la lib
 `requests` y los métodos estándares, `get`, `post`, `put`, `delete`, etc.
 En particular, en el ejemplo anterior hemos hecho una llamada autorizada con `OAuth1`
 de tipo `GET`.
+
+#### Ejemplos de conexión
+
+- Twitter: 
+    - [Atacando la API sin librerías](twitter/twitter-api-v2-raw.ipynb)
+    - [Usando la librería tweepy](twitter/twitter-api-v2-tweepy.ipynb)
+
+### Análisis de las respuestas de APIs
+
+(TBC) 
+
+
+### Limpieza y almacenamiento
+
+(TBC)
