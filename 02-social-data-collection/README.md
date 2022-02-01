@@ -331,6 +331,38 @@ normalmente los siguientes pasos:
    que no está en el ámbito en el que está autorizada, se le rechazará la petición.
    
 6. **Conectar** con la API con los credenciales obtenidos, una vez los pasos anteriores 
-   han sido satisfactoriamente. 
+   han sido satisfactoriamente.
+   
+Antes de comenzar con los detalles de conexión con una API real (como por ejemplo la 
+[API v2 de Twitter](https://developer.twitter.com/en/docs/twitter-api) 
+que vamos a usar de forma extensiva en este curso), podemos ver primero como se utilizará
+`OAuth` en la práctica cuando trabajemos con Python. Para ello, podemos comentar
+el siguiente código:
 
+```python
+import requests
 
+from requests_oauthlib import OAuth1
+
+user_auth = OAuth1(
+  client_key="YOUR_APP_KEY",
+  client_secret="YOUR_APP_SECRET",
+  resource_owner_key="USER_ACCESS_TOKEN",
+  resource_owner_secret="USER_ACCESS_SECRET",
+)
+
+base_url = "http://the-api-url.com/"
+
+response = requests.get(
+  url=f"{base_url}/get",
+  auth=user_auth,
+)
+```
+
+En este ejemplo, hemos creado un objeto de autenticación tipo `OAuth1` utilizando
+las claves de acceso obtenidas en la consola de desarrollador (donde hemos creado
+la aplicación). Sólo entonces, podremos hacer peticiones a la API (cuya URL aquí
+hemos dejado como un ejemplo genérico: `http://the-api-url.com/`) usando la librería
+`requests` y los métodos estándares, `get`, `post`, `put`, `delete`, etc.
+En particular, en el ejemplo anterior hemos hecho una llamada autorizada con `OAuth1`
+de tipo `GET`.
