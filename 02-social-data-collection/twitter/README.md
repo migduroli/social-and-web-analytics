@@ -15,11 +15,13 @@ Antes de proceder a ejecutar el código, tendrás que:
    <img src="_img/app-settings.png" alt="App settings" width="400"/>
 5. Activar `OAuth1`:
    <img src="_img/app-settings-in-1.png" alt="App settings" width="400"/>
+   
    <img src="_img/app-settings-in-2.png" alt="App settings" width="400"/>
    
 6. Generar claves de autenticación y guardarlas en archivo `JSON`, siguiendo el template
    que tenemos [aquí](../../auth/twitter_credentials%5Btemplate%5D.json)
     - Consumer keys
     - Bearer Token
-    - User keys:
-      <img src="_img/app-auth.png" alt="App settings" width="400"/>
+    - User keys
+      
+    <img src="_img/app-auth.png" alt="App settings" width="400"/>
