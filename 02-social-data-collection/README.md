@@ -368,11 +368,14 @@ hemos dejado como un ejemplo genérico: `http://the-api-url.com/`) usando la lib
 En particular, en el ejemplo anterior hemos hecho una llamada autorizada con `OAuth1`
 de tipo `GET`.
 
-#### Ejemplos de conexión
+#### Demostraciones práctica de conexión y uso de APIs
 
-- Twitter: 
+- [Twitter](twitter/README.md): 
     - [Atacando la API sin librerías](twitter/twitter-api-v2-raw.ipynb)
     - [Usando la librería tweepy](twitter/twitter-api-v2-tweepy.ipynb)
+    
+- [Youtube](youtube/README.md):
+    - [Usando google-api-python-client](youtube/youtube-api.ipynb)
 
 ### Análisis de las respuestas de APIs
 
