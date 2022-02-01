@@ -12,8 +12,11 @@ Antes de proceder a ejecutar el código, tendrás que:
 2. Acceder al portal del desarrollador: [link](https://developer.twitter.com/en/portal/dashboard)
 3. Crear un proyecto y una aplicación en ese mismo proyecto
 4. Acceder a la configuración de la aplicación:
+   
    <img src="_img/app-settings.png" alt="App settings" width="400"/>
+
 5. Activar `OAuth1`:
+   
    <img src="_img/app-settings-in-1.png" alt="App settings" width="400"/>
    
    <img src="_img/app-settings-in-2.png" alt="App settings" width="400"/>
