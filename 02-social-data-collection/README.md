@@ -126,7 +126,7 @@ contenido es enviado desde el servidor al cliente.
 Otra gran diferencia con respecto a REST que merece ser mencionada es que una API de streaming
 es mucho menos flexible que una API REST.
 
-![rest-vs-streaming](_img/rest-vs-streaming.png)
+<img src="_img/rest-vs-streaming.png" alt="REST vs Streaming" width="400"/>
 
 
 #### Ventajas e inconvenientes de las APIs
