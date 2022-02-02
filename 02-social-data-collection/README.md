@@ -368,18 +368,19 @@ hemos dejado como un ejemplo genérico: `http://the-api-url.com/`) usando la lib
 En particular, en el ejemplo anterior hemos hecho una llamada autorizada con `OAuth1`
 de tipo `GET`.
 
-#### Demostraciones práctica de conexión y uso de APIs
-
-- [Twitter](twitter/README.md): 
-    - [Usando la API sin librerías](twitter/twitter-api-v2-raw.ipynb)
-    - [Usando la librería tweepy](twitter/twitter-api-v2-tweepy.ipynb)
-    
-- [Youtube](youtube/README.md):
-    - [Usando google-api-python-client](youtube/youtube-api.ipynb)
-
 ### Análisis de las respuestas de APIs
 
-(TBC) 
+En los siguientes documentos se recogen ejemplos de conexión y uso de APIs,
+así como análisis de las repuestas de algunas APIs con las que trabajaremos durante
+el curso. Para profundizar en cada uno de ellos, haz click en los links que se 
+muestran a continuación:
+
+- [Twitter](twitter/README.md):
+    - [Usando la API sin librerías](twitter/twitter-api-v2-raw.ipynb)
+    - [Usando la librería tweepy](twitter/twitter-api-v2-tweepy.ipynb)
+
+- [Youtube](youtube/README.md):
+    - [Usando google-api-python-client](youtube/youtube-api.ipynb)
 
 
 ### Limpieza y almacenamiento
