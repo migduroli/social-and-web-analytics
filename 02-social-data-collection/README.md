@@ -370,9 +370,9 @@ de tipo `GET`.
 
 ### Análisis de las respuestas de APIs
 
-En los siguientes documentos se recogen ejemplos de conexión y uso de APIs,
-así como análisis de las repuestas de algunas APIs con las que trabajaremos durante
-el curso. Para profundizar en cada uno de ellos, haz click en los links que se 
+En los enlaces que se muestran a continuación, se han recogido ejemplos de conexión 
+y uso de APIs con las que trabajaremos durante el curso, así como análisis de sus 
+repuestas. Para profundizar en cada uno de ellos, haz click en los links que se 
 muestran a continuación:
 
 - [Twitter](twitter/README.md):
@@ -382,6 +382,8 @@ muestran a continuación:
 - [Youtube](youtube/README.md):
     - [Usando google-api-python-client](youtube/youtube-api.ipynb)
 
+- [Facebook](facebook/README.md):
+    - [Usando la API de Facebook](facebook/fb_api.py)
 
 ### Limpieza y almacenamiento
 
