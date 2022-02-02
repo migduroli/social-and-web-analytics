@@ -16,5 +16,8 @@ por lo que deberás instalar dicha librería en el entorno de desarrollo,
 i.e., ejecutar `pip install facebook-sdk`.
 
 Ahora que tienes preparado el entorno, puedes proceder a explorar el
-script de conexión: [link](fb_api.py)
- 
+script de conexión: [link](fb_api.py).
+
+**Nota**: Desafortunadamente la API de Facebook está bastante limitada a día de hoy en 
+cuanto a permisos. Para poder obtener permisos es necesario hacer una solicitud especificando
+los permisos que se necesitan, y proveer documentación oficial (bien DNI, pasaporte, etc.)
