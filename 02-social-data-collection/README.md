@@ -435,6 +435,7 @@ operaciones analíticas fundamentales como las búsquedas, agrupaciones, etc.
 
 - **Pre-procesado y normalización de texto**: Esta etapa es una de las más importantes para el posterior análisis, dado 
 que será en esta etapa donde identifiquemos/seleccionemos las partes importantes que posteriormente serán usadas.
+
 El pre-procesado de columnas numéricas puede incluir:
   - Detección (y corrección) de *outliers*
   - Detección (y corrección) de `NaN`'s
