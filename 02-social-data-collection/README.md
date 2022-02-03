@@ -388,6 +388,89 @@ muestran a continuación:
 - [Google Trends]():
   - [Usando la librería PyTrends](google-trends/trends_pytrends.py)
 
+Como podremos comprobar en cada uno de los ejemplos mencionados (a excepción de `pytrends` ya
+que no se trata realmente de una API, aunque se ha incluido como ejemplo de conexión a datos
+sociales por la relevancia de su contenido) se repiten los siguientes pasos de forma 
+genérica:
+
+1. Alta de cuenta de desarrollador en la plataforma
+2. Creación de aplicación (App) en la plataforma del desarrollador asociada
+3. Generación de credenciales (y del *scope* de los mismos)
+4. Salvaguarda de los credenciales en un fichero `JSON`
+5. Ejecución de peticiones con `requests` (o mediante cliente `Python` de librerías de terceros)
+6. Colección de resultados como `JSON`
+
 ### Limpieza y almacenamiento
 
-(TBC)
+Una vez nos hemos familiarizado con la conexión y respuesta de algunas de las APIs más utilizadas
+para el análisis social, habremos visto:
+
+1. Inhomogéneidad de endpoints: Cada API es un *monstruo* de diferentes características
+2. Diversidad de datos: La información obtenida es muy diversa y diferente dependiendo de qué plataforma estemos consultando
+    desde perfiles de usuario, estadísticas fundamentales, textos, etc. 
+
+Por supuesto, a la hora de hacer analítica social lo primero que pensamos en datos cuantitativos, pero tál y como hemos podido
+comprobar con Twitter o Youtube, los datos no estructurados como Twits o comentarios pueden llegar a ser de un valor
+incalculable. Sin embargo, a diferencia de los datos cuantitativos que también son recibidos de estas plataformas,
+su tratamiento para extraer información significativa puede llegar a ser un poco más complejo.
+El proceso de preparación de tratamiento de datos no estructurados (texto, imágenes, vídeos, etc.)
+se suele conocer como: **limpieza y normalización**. Una vez que los datos hayan sido limpiados y normalizados
+podremos proceder sin más al análisis social. Normalmente, tendremos que tener en cosideración los
+siguientes puntos:
+
+- **Encoding**: Cuando lidiamos con datos de texto, una de las principales preocupaciones que debemos tener es sobre la
+[codificación](https://es.wikipedia.org/wiki/Codificaci%C3%B3n_de_caracteres) de las cadenas de caracteres (`strings`) que
+obtenemos como representación de los twits, comentarios, etc. De manera muy resumida, el *encoding* (codificación)
+es el proceso mediante el cual una cadena de caracteres se convierte en `bytes`. Dicha codificación juega un papel muy 
+importante a la hora de poder hacer analítica exacta, sobre todo por el uso de `emojis` (o emoticonos) como sustitutivos
+de palabras completas, o el uso de acentos en diferentes lenguajes, etc. El hecho de que dos `strings` completamente iguales
+tengan una codificación diferente puede conllevar una mala categorización de sentimientos, por poner un ejemplo. 
+En Python, el estándar es `UTF-8`, por lo que como regla general, nos aseguraremos que nuestros datos siempre estén en
+`Unicode UTF-8` para evitar *peras* con *manzanas*.
+
+- **Estructura**: Una de las preguntas claves a la hora de trabajar con datos de cualquier índole es: ¿Cuál es la estructura
+que mejor representa mis datos? En el caso del análisis, casi por norma general, tendrá una respuesta sencilla: *formato tabular*.
+El porqué es fácil de justificar: la organización en filas y columnas es algo que facilita de forma considerable las 
+operaciones analíticas fundamentales como las búsquedas, agrupaciones, etc.  
+
+- **Pre-procesado y normalización de texto**: Esta etapa es una de las más importantes para el posterior análisis, dado 
+que será en esta etapa donde identifiquemos/seleccionemos las partes importantes que posteriormente serán usadas.
+El pre-procesado de columnas numéricas puede incluir:
+  - Detección (y corrección) de *outliers*
+  - Detección (y corrección) de `NaN`'s
+  - Dummy-encoding de columnas categóricas 
+  - Normalización de columnas `float`
+Por otra parte, el pre-procesado de texto suele involucrar los siguientes pasos:
+  - Limpieza de espacios en blanco: `.strip()`
+  - Limpieza de símbolos de puntuación: `re.sub(r"[^\w\s]", "", my_string)` 
+    donde: 
+    ```bash
+    [ #Character block start.
+    ^ #Not these characters (letters, numbers).
+    \w #Word characters.
+    \s #Space characters.
+    ] #Character block end.
+    ```
+  - Limpieza de elementos HTML: `re.sub(r"<[^<]+?>", "", my_string")`
+  - Limpieza de URLs: `re.sub(r"^https?:\/\/.*[\r\n]*", "", text, flags=re.MULTILINE)`
+  - Corrección de palabras con errores
+  - Limpieza de palabras comunes (vacías de significado), por ejemplo, determinantes, preposiciones o conjucciones.
+  - Normalización a minúsculas: `my_string.lower()`
+  - Limpieza de conectores (*stop words*): Para este caso utilizaremos `nltk`:
+  ```python
+  import nltk
+  from nltk.corpus import stopwords
+  nltk.download("stopwords")
+  my_string = "This is a completely random text in english and I would like to see the result"
+  result = " ".join([word for word in verbatim.split() if word not in stopwords.words("english")])
+  ```
+  - Stemming y Lemmas (*Stemming and Lemmatization*): El objetivo esencial de esta etapa es el de reducir palabras a su 
+  raíz o (en inglés) a un stem, además de hallar el lema correspondiente de *formas flexionadas* (es decir, un plural, femenino, conjugación, etc), siendo 
+  lema la forma que por convenio se acepta como representante de todas las formas flexionadas de una misma palabra.
+
+  - Sustitución de **Emojis**: Para ello usaremos [emoji](https://pypi.org/project/emoji/):
+  ```python
+  import emoji
+  text = "game is on 🔥 🔥"
+  text_modified = emoji.demojize(text, delimiters=("", ""))
+  ```
