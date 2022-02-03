@@ -6,12 +6,15 @@ pytrends = TrendReq(hl='en-US', tz=360)
 
 kw_list = ["machine learning"]
 
-pytrends.build_payload(kw_list, cat=0, timeframe='today 12-m')
-
+pytrends.build_payload(
+    kw_list,
+    cat=0,
+    timeframe="today 12-m",
+    geo="ES"
+)
 
 data = pytrends.interest_over_time()
 data = data.reset_index()
-
 
 fig = px.line(
     data,
@@ -36,13 +39,11 @@ pytrends.get_historical_interest(
 )
 
 by_region = pytrends.interest_by_region(
-    resolution='COUNTRY',
+    resolution="COUNTRY",
     inc_low_vol=True,
     inc_geo_code=False
 )
-
 by_region.head(10)
-
 
 keywords = pytrends.suggestions(keyword='Business Intelligence')
 df = pd.DataFrame(keywords)

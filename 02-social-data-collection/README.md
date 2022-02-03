@@ -376,14 +376,17 @@ repuestas. Para profundizar en cada uno de ellos, haz click en los links que se
 muestran a continuación:
 
 - [Twitter](twitter/README.md):
-    - [Usando la API sin librerías](twitter/twitter-api-v2-raw.ipynb)
-    - [Usando la librería tweepy](twitter/twitter-api-v2-tweepy.ipynb)
+  - [Usando la API sin librerías](twitter/twitter-api-v2-raw.ipynb)
+  - [Usando la librería tweepy](twitter/twitter-api-v2-tweepy.ipynb)
 
 - [Youtube](youtube/README.md):
-    - [Usando google-api-python-client](youtube/youtube-api.ipynb)
+  - [Usando google-api-python-client](youtube/youtube-api.ipynb)
 
 - [Facebook](facebook/README.md):
-    - [Usando la API de Facebook](facebook/fb_api.py)
+  - [Usando la API de Facebook](facebook/fb_api.py)
+
+- [Google Trends]():
+  - [Usando la librería PyTrends](google-trends/trends_pytrends.py)
 
 ### Limpieza y almacenamiento
 
