@@ -477,3 +477,16 @@ Por otra parte, el pre-procesado de texto suele involucrar los siguientes pasos:
   text = "game is on 🔥 🔥"
   text_modified = emoji.demojize(text, delimiters=("", ""))
   ```
+  
+  - Tokenización: Proceso mediante el cual extraemos las diferentes unidades de interés del text (en general palabras,
+  pero también pueden ser frases, lineas, etc.). Para ello podemos usar también `nltk`:
+  ```python
+  from nltk import word_tokenize, sent_tokenize, line_tokenize
+  
+  text = ("This is a completely random text in english, and I would like to see the result. "
+          "For this is an example that must remain!\nSigned -- Myself")
+  
+  words = word_tokenize(text)
+  sentences = sent_tokenize(text)
+  lines = line_tokenize(text)
+  ```
