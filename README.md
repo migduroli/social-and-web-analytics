@@ -21,8 +21,8 @@ siguiente índice de contenidos:
 2. [Recopilación de información de redes sociales](02-social-data-collection/README.md)
       
     - [APIs: Tipos, autenticación, conexión y limitaciones](02-social-data-collection/README.md#apis-tipos-ventajas-e-inconvenientes-autenticacin-y-conexin)
-    - Análisis de las respuestas de APIs
-    - Limpieza y almacenamiento
+    - [Análisis de las respuestas de APIs](02-social-data-collection/README.md#análisis-de-las-respuestas-de-apis)
+    - [Limpieza y almacenamiento](02-social-data-collection/README.md#limpieza-y-almacenamiento)
     - Medición, recopilación y análisis de los datos de tráfico web
 
 
