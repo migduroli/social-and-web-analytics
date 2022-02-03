@@ -440,7 +440,9 @@ El pre-procesado de columnas numéricas puede incluir:
   - Detección (y corrección) de `NaN`'s
   - Dummy-encoding de columnas categóricas 
   - Normalización de columnas `float`
+
 Por otra parte, el pre-procesado de texto suele involucrar los siguientes pasos:
+
   - Limpieza de espacios en blanco: `.strip()`
   - Limpieza de símbolos de puntuación: `re.sub(r"[^\w\s]", "", my_string)` 
     donde: 
