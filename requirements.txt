@@ -11,3 +11,8 @@ plotly
 kaleido
 google-api-python-client
 nltk
+networkx
+matplotlib
+scipy
+community
+python-louvain
