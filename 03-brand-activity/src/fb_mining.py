@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import datetime
 import json
 import os
@@ -5,7 +7,6 @@ import re
 import nltk
 
 import facebook_scraper as fb
-import pandas as pd
 import logging
 import pymongo as pymdb
 
@@ -123,140 +124,5 @@ def read_posts(account: str, config=None, limit=100):
     return fb.read_posts(account=account, limit=limit)
 
 
-posts = read_posts("Google")
-posts_cols = [
-    '_id', 'text', 'post_text', 'shared_text', 'time', 'video_watches',
-    'likes', 'comments', 'shares', 'user_id',
-]
-
-comments_cols = [
-    '_id', 'comments_full',
-]
-
-comments_data = [{k: p[k] for k in comments_cols} for p in posts]
-posts_data = [{k: p[k] for k in posts_cols} for p in posts]
-
-posts_df = pd.DataFrame(posts_data).rename(
-    columns={"_id": "id"}
-)
-
-comments_full_cols = [
-    "id",
-    "comment_time",
-    "comment_text",
-    "comment_reactions",
-]
-comments_df = pd.DataFrame(
-    columns=comments_full_cols
-)
-for c in comments_data:
-    c_df = pd.json_normalize(c["comments_full"])
-    try:
-        c_df.loc[:, "id"] = c["_id"]
-        comments_df = comments_df.append(
-            c_df[comments_full_cols]
-        )
-    except:
-        print(f"Unable to insert: {c['_id']} ({c_df.shape})")
-
-
-comments_df = pd.DataFrame(
-    columns=comments_full_cols
-)
-
-
-# Preprocess:
-def preprocess(text: str):
-    # cleans white spaces and punctuation, and converts text to lower
-    c_text = re.sub(
-        pattern=r"[^\w\s]",
-        repl="",
-        string=text.lower().strip()
-    )
-
-    # tokenize words:
-    tokens = nltk.word_tokenize(c_text)
-    return tokens
-
-
-# Feature extraction:
-def get_hashtags(text):
-    hashtags = re.findall(
-        pattern=r"#(\w+)",
-        string=text
-    )
-    return hashtags
-
-
-# Syntax:
-def tag_tokens(text):
-    # Get the part-of-speech of a word in a sentence:
-    pos = nltk.pos_tag(text)
-    return pos
-
-
-#
-def get_keywords(tagged_tokens, pos="all"):
-    if pos == "all":
-        lst_pos = ("NN", "JJ", "VP")
-    elif pos == "nouns":
-        lst_pos = "NN"
-    elif pos == "verbs":
-        lst_pos = "VB"
-    elif pos == "adjectives":
-        lst_pos = "JJ"
-    else:
-        lst_pos = ("NN", "JJ", "VP")
-
-    keywords = [
-        t[0] for t in tagged_tokens if t[1].startswith(lst_pos)
-    ]
-    return keywords
-
-
-# Get noun phrases:
-def get_noun_phrases(tagged_tokens):
-    # Optional determiner, and multiple adjts and nouns
-    grammar = "NP: {<DT>?<JJ>*<NN>}"
-    cp = nltk.RegexpParser(grammar)
-    tree = cp.parse(tagged_tokens)
-
-    result = []
-
-    def is_noun(token):
-        return token.label() == "NP"
-
-    for subtree in tree.subtrees(filter = is_noun):
-        leaves = subtree.leaves()
-        if len(leaves) > 1:
-            outputs = " ".join([
-                t[0] for t in leaves
-            ])
-            result += [outputs]
-
-    return result
-
-
-def execute_pipeline(df, msg_col="post_text"):
-    df["hastags"] = df.apply(
-        lambda x: get_hashtags(x[msg_col]),
-        axis=1
-    )
-    df["preprocessed"] = df.apply(
-        lambda x: preprocess(x[msg_col]),
-        axis=1
-    )
-    df["tagged"] = df.apply(
-        lambda x: tag_tokens(x["preprocessed"]),
-        axis=1
-    )
-    df["keywords"] = df.apply(
-        lambda x: get_keywords(x["tagged"]),
-        axis=1
-    )
-    df["noun_phrases"] = df.apply(
-        lambda x: get_noun_phrases(x["tagged"]),
-        axis=1
-    )
-
-    return df
+if __name__ == "__main__":
+    mine_posts("CocaColaEsp")
