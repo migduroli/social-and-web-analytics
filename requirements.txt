@@ -2,6 +2,7 @@ python-twitter-v2
 tweepy
 matplotlib
 facebook-sdk
+facebook-scraper
 pandas
 numpy
 authlib
@@ -18,3 +19,5 @@ python-louvain
 community
 googletrans==3.1.0a0
 google-cloud-language
+fuzzywuzzy
+python-Levenshtein
