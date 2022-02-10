@@ -17,3 +17,4 @@ scipy
 python-louvain
 community
 googletrans==3.1.0a0
+google-cloud-language
