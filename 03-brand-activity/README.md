@@ -259,8 +259,8 @@ posts (Facebook) y Tweets (Twitter) lo vamos a hacer utilizando los siguientes s
     
     
     class TwitterVersion(Enum):
-    V1 = 1
-    V2 = 2
+        V1 = 1
+        V2 = 2
     
     
     class TwitterScraper(APIScraper):
