@@ -26,7 +26,7 @@ siguiente índice de contenidos:
     - Medición, recopilación y análisis de los datos de tráfico web
 
 
-3. Agregación, evaluación y monitorización de imagen de empresa:
+3. [Agregación, evaluación y monitorización de imagen de empresa](03-brand-activity/README.md)
       
     - Planificación del proyecto
     - Análisis: Palabras clave y sintagmas nominales
