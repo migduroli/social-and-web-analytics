@@ -44,12 +44,12 @@ En este proyecto vamos a intentar dar respuesta a las siguientes preguntas "tent
 - ¿Qué emociones están surgiendo de las publicaciones?
 
 
-### Colección y procesado de datos sociales
+#### Extracción de datos sociales
 
 En este ejemplo en concreto vamos a explorar la marca `LouisVuitton`. El minado de
 posts (Facebook) y Tweets (Twitter) lo vamos a hacer utilizando los siguientes scripts:
 
-- [facebook-miner](src/fb_mining.py):
+- [mine-facebook](social-miner/src/social_miner/facebook.py):
 
   ```python
     #!/usr/bin/env python
@@ -182,13 +182,13 @@ posts (Facebook) y Tweets (Twitter) lo vamos a hacer utilizando los siguientes s
   Para ejecutar el script, sólo tenemos que cambiar el permiso del fichero (`chmod a+x fb_mining.py`)
   y ejecutar la siguiente línea de comando:
     ```shell
-    > ./fb_mining.py BRAND_PAGE_NAME
+    > ./facebook.py BRAND_PAGE_NAME
     ```
   Donde `BRAND_PAGE_NAME` será el nombre de la página de la marca que queramos minar,
   por ejemplo: `Google`.
   
 
-- [twitter-miner](src/twitter_mining.py):
+- [mine-tweets](social-miner/src/social_miner/twitter.py):
   ```python
     #!/usr/bin/env python
     
@@ -429,7 +429,7 @@ posts (Facebook) y Tweets (Twitter) lo vamos a hacer utilizando los siguientes s
   Para ejecutar el script, solo tenemos que cambiar el permiso del fichero (`chmod a+x twitter_mining.py`)
   y ejecutar la siguiente línea de comando:
   ```shell
-    > ./twitter_mining.py BRAND_USERNAME
+    > ./twitter.py BRAND_USERNAME
   ```
   Donde `BRAND_USERNAME` será el nombre de la cuenta de Twitter de la marca que queramos minar,
   por ejemplo: `Google`.
@@ -459,9 +459,14 @@ El proceso de extracción que se realiza mediante los scripts anteriores consist
 - Descargar todos los datos referentes a los *retweeterers* que nos permita la API de Twitter
 
 
+Las descargas enunciadas son inmediatamente guardadas en una colección en MongoDB con el 
+nombre de la marca. De esta forma, la etapa de procesado y extracción de información puede
+ocurrir sin necesidad de conectarnos a la API nuevamente, ya que tenemos los datos en local.
 
-#### Procesado
 
+#### Procesado (*Feature Extraction*)
 
-- Análisis: Palabras clave y sintagmas nominales
-- Detección de tendencias
+Una vez hemos descargado los datos que consideramos oportunos a nuestra base de datos, 
+procederemos a su procesamiento para extraer la información fundamental que nos permitirá
+responder a las cuestiones planteadas anteriormente.
+

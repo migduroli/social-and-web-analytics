@@ -5,6 +5,7 @@ import sys
 
 import pymongo as pymdb
 import facebook_scraper as fb
+from bson.json_util import dumps
 
 logging.basicConfig(level=logging.INFO)
 
@@ -103,6 +104,24 @@ class FBScraper:
 
         return posts
 
+    def dump_posts(self, account, limit=None):
+        collection = self.collection[account]
+        cursor = collection.find({})
+        if limit:
+            cursor = cursor.limit(limit)
+
+        logging.info(f"Dumping collection {account}...")
+        filename = f"fb_posts_{account}.json"
+
+        with open(filename, "w") as f:
+            f.write("[")
+            for document in cursor:
+                f.write(dumps(document))
+                f.write(",")
+            f.write("]")
+        logging.info(f"Collection {account} dumped in {filename}")
+        return
+
 
 def mine_posts(account: str, config=None):
     if config is None:
@@ -120,6 +139,18 @@ def read_posts(account: str, config=None, limit=100):
     return fb.read_posts(account=account, limit=limit)
 
 
-if __name__ == "__main__":
+def dump_posts(account:str, config=None, limit=None):
+    if config is None:
+        config = default_config
+
+    fb = FBScraper(**config)
+    return fb.dump_posts(account=account, limit=limit)
+
+
+def main():
     brand = sys.argv[1]
     mine_posts(account=brand)
+
+
+if __name__ == "__main__":
+    main()

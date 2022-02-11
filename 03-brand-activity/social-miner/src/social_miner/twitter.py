@@ -2,16 +2,26 @@
 
 import json
 import logging
-import pymongo as pymdb
 import tweepy
 import sys
 
 from enum import Enum
 
+import pymongo as pymdb
+
+from bson.json_util import dumps
+
 logging.basicConfig(level=logging.INFO)
 
 
 class APIScraper:
+
+    DEFAULT_DB_CONFIG = {
+        "host": "localhost:27017",
+        "collection": "twitter",
+    }
+
+    MAX_ITEMS = 100_000
 
     @staticmethod
     def read_json_file(file):
@@ -217,18 +227,115 @@ class TwitterScraper(APIScraper):
 
         self.tweet_fields = tweet_fields
 
+    def read_tweets(self, user_name, limit=100):
+        collection = self.collection[user_name]
+        cursor = collection.find({})
+        if limit:
+            cursor = cursor.limit(limit)
 
-if __name__ == "__main__":
-    brand = sys.argv[1]
+        posts = []
+        for document in cursor:
+            posts += [document]
+
+        return posts
+
+    def dump_tweets(self, user_name, limit=None):
+        collection = self.collection[user_name]
+        cursor = collection.find({})
+        if limit:
+            cursor = cursor.limit(limit)
+
+        logging.info(f"Dumping collection {user_name}...")
+        filename = f"tw_tweets_{user_name}.json"
+        with open(filename, "w") as f:
+            f.write("[")
+            for document in cursor:
+                f.write(dumps(document))
+                f.write(",")
+            f.write("]")
+        logging.info(f"Collection {user_name} dumped in {filename}")
+        return
+
+
+def mine_tweets(
+        account: str,
+        limit: int = 100,
+        credentials_path: str = "auth/private/twitter_credentials.json",
+        db_params=None
+):
+    if db_params is None:
+        db_params = APIScraper.DEFAULT_DB_CONFIG
 
     tw = TwitterScraper(
-        credentials_path="auth/private/twitter_credentials.json",
-        db_params={
-            "host": "localhost:27017",
-            "collection": "twitter",
-        },
+        credentials_path=credentials_path,
+        db_params=db_params,
         api_version=TwitterVersion.V2,
-        max_items=100_000,
+        max_items=limit,
+    )
+
+    return tw.mine_user_tweets(user_name=account)
+
+
+def read_tweets(
+        account: str,
+        limit: int = 100,
+        credentials_path: str = "auth/private/twitter_credentials.json",
+        db_params=None
+):
+    if db_params is None:
+        db_params = APIScraper.DEFAULT_DB_CONFIG
+
+    tw = TwitterScraper(
+        credentials_path=credentials_path,
+        db_params=db_params,
+        api_version=TwitterVersion.V2,
+        max_items=limit,
+    )
+
+    return tw.read_tweets(user_name=account, limit=limit)
+
+
+def dump_tweets(
+        account: str,
+        limit: int = None,
+        credentials_path: str = "auth/private/twitter_credentials.json",
+        db_params=None
+):
+    if db_params is None:
+        db_params = APIScraper.DEFAULT_DB_CONFIG
+
+    tw = TwitterScraper(
+        credentials_path=credentials_path,
+        db_params=db_params,
+        api_version=TwitterVersion.V2,
+        max_items=limit,
+    )
+
+    return tw.dump_tweets(user_name=account, limit=limit)
+
+
+def mine_tweets_console(
+        credentials_path: str = "auth/private/twitter_credentials.json",
+        db_params=None,
+        limit: int = None,
+):
+    brand = sys.argv[1]
+
+    if db_params is None:
+        db_params = APIScraper.DEFAULT_DB_CONFIG
+    if not limit:
+        limit = APIScraper.MAX_ITEMS
+
+    tw = TwitterScraper(
+        credentials_path=credentials_path,
+        db_params=db_params,
+        api_version=TwitterVersion.V2,
+        max_items=limit,
     )
 
     tw.mine_user_tweets(user_name=brand)
+
+
+if __name__ == "__main__":
+    mine_tweets_console()
+
