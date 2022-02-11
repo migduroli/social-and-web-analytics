@@ -1,7 +1,11 @@
+#!/usr/bin/env python
+
 import json
 import logging
 import pymongo as pymdb
 import tweepy
+import sys
+
 from enum import Enum
 
 logging.basicConfig(level=logging.INFO)
@@ -213,3 +217,18 @@ class TwitterScraper(APIScraper):
 
         self.tweet_fields = tweet_fields
 
+
+if __name__ == "__main__":
+    brand = sys.argv[1]
+
+    tw = TwitterScraper(
+        credentials_path="auth/private/twitter_credentials.json",
+        db_params={
+            "host": "localhost:27017",
+            "collection": "twitter",
+        },
+        api_version=TwitterVersion.V2,
+        max_items=100_000,
+    )
+
+    tw.mine_user_tweets(user_name=brand)

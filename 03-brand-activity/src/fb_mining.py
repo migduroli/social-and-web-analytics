@@ -1,14 +1,10 @@
 #!/usr/bin/env python
-
-import datetime
 import json
-import os
-import re
-import nltk
-
-import facebook_scraper as fb
 import logging
+import sys
+
 import pymongo as pymdb
+import facebook_scraper as fb
 
 logging.basicConfig(level=logging.INFO)
 
@@ -91,7 +87,7 @@ class FBScraper:
         posts = []
         for post in posts_iterator:
             self._write_post_db(post, database=account)
-            posts += []
+            posts += [post]
 
         return posts
 
@@ -125,4 +121,5 @@ def read_posts(account: str, config=None, limit=100):
 
 
 if __name__ == "__main__":
-    mine_posts("CocaColaEsp")
+    brand = sys.argv[1]
+    mine_posts(account=brand)
