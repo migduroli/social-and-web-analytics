@@ -425,6 +425,7 @@ posts (Facebook) y Tweets (Twitter) lo vamos a hacer utilizando los siguientes s
     
         tw.mine_user_tweets(user_name=brand)
   ```
+  
   Para ejecutar el script, solo tenemos que cambiar el permiso del fichero (`chmod a+x twitter_mining.py`)
   y ejecutar la siguiente línea de comando:
   ```shell
@@ -441,6 +442,26 @@ MongoDB corriendo en nuestro sistema. Para ello recomendamos ejecutar:
 Este comando de docker lanzará una imagen de docker de MongoDB que guardará los datos en 
 el nuestro directorio local `LOCAL_PATH_TO_BIND` (sustituir con la dirección que nostros
 queramos).
+
+
+El proceso de extracción que se realiza mediante los scripts anteriores consiste en:
+
+- Descargar todos los *posts* que nos permita Facebook de la marca
+
+- Descargar todos los metadatos que nos permita Facebook de estos posts
+
+- Descargar todos los comentarios que nos permita Facebook de estos posts
+
+- Descargar todos los tweets que nos permita la API de Twitter de la marca
+
+- Descargar todos los metadatos que nos permita la API de Twitter de esos tweets
+
+- Descargar todos los datos referentes a los *retweeterers* que nos permita la API de Twitter
+
+
+
+#### Procesado
+
 
 - Análisis: Palabras clave y sintagmas nominales
 - Detección de tendencias
