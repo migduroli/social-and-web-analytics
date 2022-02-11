@@ -157,6 +157,7 @@ def generate_wordcloud(
         height=400,
         figsize=(20,10),
         collocations=False,
+        noise_words=NOISE_WORDS,
 ):
     tokens = list(
         itertools.chain.from_iterable(df[col])
