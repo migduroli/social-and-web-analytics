@@ -433,6 +433,14 @@ posts (Facebook) y Tweets (Twitter) lo vamos a hacer utilizando los siguientes s
   Donde `BRAND_USERNAME` será el nombre de la cuenta de Twitter de la marca que queramos minar,
   por ejemplo: `Google`.
 
+‼️ **Nota**: Para que los scripts anteriores funcionen correctamente, deberemos tener 
+MongoDB corriendo en nuestro sistema. Para ello recomendamos ejecutar:
+```shell
+> docker run --name mongodb -d -p 27017:27017 -v LOCAL_PATH_TO_BIND:/data/db mongo
+```
+Este comando de docker lanzará una imagen de docker de MongoDB que guardará los datos en 
+el nuestro directorio local `LOCAL_PATH_TO_BIND` (sustituir con la dirección que nostros
+queramos).
 
 - Análisis: Palabras clave y sintagmas nominales
 - Detección de tendencias
