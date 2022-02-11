@@ -411,7 +411,7 @@ posts (Facebook) y Tweets (Twitter) lo vamos a hacer utilizando los siguientes s
     
     
     if __name__ == "__main__":
-    brand = sys.argv[1]
+        brand = sys.argv[1]
     
         tw = TwitterScraper(
             credentials_path="auth/private/twitter_credentials.json",
@@ -428,7 +428,7 @@ posts (Facebook) y Tweets (Twitter) lo vamos a hacer utilizando los siguientes s
   Para ejecutar el script, solo tenemos que cambiar el permiso del fichero (`chmod a+x twitter_mining.py`)
   y ejecutar la siguiente línea de comando:
   ```shell
-    > ./twitter_mining.py BRAND_PAGE_NAME
+    > ./twitter_mining.py BRAND_USERNAME
   ```
   Donde `BRAND_USERNAME` será el nombre de la cuenta de Twitter de la marca que queramos minar,
   por ejemplo: `Google`.
