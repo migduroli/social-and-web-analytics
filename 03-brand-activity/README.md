@@ -608,7 +608,7 @@ Todo este proceso se puede ver en acción en el siguiente [Jupyter Notebook](../
 Una vez tenemos preparado el dataset con la estructura e ingredientes adecuados,
 podemos proceder al análisis del contenido de los posts (y de sus respuestas por los usuarios).
 
-#### Palabras claves
+#### Palabras claves y hashtags
 
 Una de las métricas más directas de extraer y analizar dado el estado actual del dataset es
 la frecuencia de aparición de palabras, así como la extracción de las "más frecuentemente usadas".
@@ -713,6 +713,7 @@ word_freq
 ```
 
 lo que nos resultaría en:
+
 ```python
 word        	freq
 louisvuitton	76
@@ -737,3 +738,25 @@ BTS             18
 LVConnected     6
 ...
 ```
+
+#### Sintagmas nominales
+
+Finalmente, podemos aplicar la misma metodología para hacer un estudio gráfico y 
+posteriormente cuantitativo de los sintagmas nominales más frecuentes en los posts
+de la marca, o en los comentarios de los usuarios. En sintaxis, sintagma nominal
+es el sintagma o grupo de palabras que forma un constituyente sintáctico maximal,
+cuyo núcleo está constituido por un nombre (sustantivo, pronombre o palabra sustantiva) 
+o pronombre (si no se considera el sintagma determinante). El análisis de sintagmas
+nominales en posts y comentarios es bastante útil para desvelar una primera capa de
+sentimiento, ya que se pueden clasificar fácilmente como positivos, negativos o neutros.
+Un ejemplo de este tipo de "expresiones de sentimientos" sería algo así como
+*good product*, que claramente tiene una polaridad positiva.
+
+Para obtener una representación gráfica de los sintagmas nominales más comunes, solo
+tendríamos que usar:
+
+```python
+wc = generate_wordcloud(df, "noun_phrases", figsize=(10,5))
+```
+
+donde `df` sería el `DataFrame` con los datos referentes a los posts o a los comentarios.
