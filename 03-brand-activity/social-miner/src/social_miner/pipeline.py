@@ -51,6 +51,15 @@ import matplotlib.pyplot as plt
 # )
 
 
+# Feature extraction:
+def get_hashtags(text):
+    hashtags = list(set(re.findall(
+        pattern=r"#(\w+)",
+        string=text
+    )))
+    return hashtags
+
+
 # Preprocess:
 def preprocess(text: str):
     # cleans white spaces and punctuation, and converts text to lower
@@ -63,15 +72,6 @@ def preprocess(text: str):
     # tokenize words:
     tokens = nltk.word_tokenize(c_text)
     return tokens
-
-
-# Feature extraction:
-def get_hashtags(text):
-    hashtags = list(set(re.findall(
-        pattern=r"#(\w+)",
-        string=text
-    )))
-    return hashtags
 
 
 # Syntax:

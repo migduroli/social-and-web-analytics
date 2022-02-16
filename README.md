@@ -28,7 +28,7 @@ siguiente índice de contenidos:
 
 3. [Agregación, evaluación y monitorización de imagen de empresa](03-brand-activity/README.md)
       
-    - Planificación del proyecto
+    - [Planificación del proyecto](03-brand-activity/README.md#planificación-del-proyecto)
     - Análisis: Palabras clave y sintagmas nominales
     - Detección de tendencias
 

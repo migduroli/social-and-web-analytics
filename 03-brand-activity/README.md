@@ -463,10 +463,32 @@ Las descargas enunciadas son inmediatamente guardadas en una colección en Mongo
 nombre de la marca. De esta forma, la etapa de procesado y extracción de información puede
 ocurrir sin necesidad de conectarnos a la API nuevamente, ya que tenemos los datos en local.
 
+‼️ **Nota 2**: En las prácticas de clase, se han colectado los datos referentes a la marca
+*Louis Vuitton*. Los datos colectados han sido compartido a través del grupo de la asignatura
+como `data.zip`, que representa la carpeta generada por MongoDB. Para poder trabajar con
+esos datos lo único que tienes que hacer es descargar el fichero *.zip*, descomprimirlo en 
+el directorio que creas oportuno en tu sistema operativo, y ejecutes:
+```shell
+> docker run --name mongodb -d -p 27017:27017 -v UNZIP_FILE_PATH:/data/db mongo
+```
 
 #### Procesado (*Feature Extraction*)
 
 Una vez hemos descargado los datos que consideramos oportunos a nuestra base de datos, 
 procederemos a su procesamiento para extraer la información fundamental que nos permitirá
-responder a las cuestiones planteadas anteriormente.
+responder a las cuestiones planteadas anteriormente. En esencia, los pasos que vamos
+a seguir son los siguientes:
 
+<img src="_img/pipeline.png" alt="Pipeline" width="600"/>
+
+
+- Obtener los #hashtags del texto crudo obtenido desde la API/Web: [get_hashtags](social-miner/src/social_miner/pipeline.py):
+  ```python
+  import re
+  def get_hashtags(text: str):
+    hashtags = list(set(re.findall(
+        pattern=r"#(\w+)",
+        string=text
+    )))
+    return hashtags
+  ```
