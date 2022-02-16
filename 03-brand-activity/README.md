@@ -714,24 +714,24 @@ word_freq.head(50)
 lo que nos resultaría en:
 ```python
 word	freq
-19	louisvuitton	76
-20	collection	47
-199	show	33
-240	virgil	33
-241	abloh	29
-222	january	25
-35	new	23
-208	house	22
-205	fashion	21
-246	lvmenfw22	21
-89	recent	20
-462	special	18
-265	presentation	18
-463	editions	18
-464	voguekorea	18
-209	ambassador	18
-466	bts	18
-465	gqkorea	17
-460	bts_twt	17
-23	paris	14
+louisvuitton	76
+collection	47
+show	33
+virgil	33
+abloh	29
+january	25
+new	23
+house	22
+fashion	21
+lvmenfw22	21
+recent	20
+special	18
+presentation	18
+editions	18
+voguekorea	18
+ambassador	18
+bts	18
+gqkorea	17
+bts_twt	17
+paris	14
 ```
