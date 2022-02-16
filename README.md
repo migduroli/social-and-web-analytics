@@ -30,7 +30,7 @@ siguiente índice de contenidos:
       
     - [Planificación del proyecto](03-brand-activity/README.md#planificación-del-proyecto)
     - [Análisis: Palabras clave y sintagmas nominales](03-brand-activity/README.md#análisis-palabras-clave-y-sintagmas-nominales)
-    - Detección de tendencias
+    - [Detección de tendencias](03-brand-activity/README.md#detección-de-tendencias-en-series-temporales)
 
       
 4. Análisis de sentimientos y percepción de consumidor
