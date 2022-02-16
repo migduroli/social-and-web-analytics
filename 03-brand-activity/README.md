@@ -730,10 +730,10 @@ de hashtags y extraer los top 20:
 
 ```python
 word	        freq
-LouisVuitton        96
+LouisVuitton    96
 LVMenFW22       32
-LVMenSS22	    20
-BTS	            18
-LVConnected	    6
+LVMenSS22       20
+BTS     18
+LVConnected     6
 ...
 ```
