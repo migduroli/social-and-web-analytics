@@ -60,14 +60,24 @@ def extract_hashtags(text):
     return hashtags
 
 
+def remove_urls(text: str):
+    # remove all URLs inside a string:
+    return re.sub(
+        r"^https?:\/\/.*[\r\n]*", "", text, flags=re.MULTILINE
+    )
+
+
 # Preprocess:
-def preprocess_and_tokenize(text: str):
+def preprocess_and_tokenize(text: str, filter_urls: bool = True):
     # cleans white spaces and punctuation, and converts text to lower
     c_text = re.sub(
-        pattern=r"[^\w\s]",
-        repl="",
-        string=text.lower().strip()
-    )
+            pattern=r"[^\w\s]",
+            repl="",
+            string=text.lower().strip()
+        )
+
+    if filter_urls:
+        c_text = remove_urls(c_text)
 
     # tokenize words:
     tokens = nltk.word_tokenize(c_text)
@@ -155,9 +165,10 @@ def generate_wordcloud(
         df: pd.DataFrame, col,
         width=800,
         height=400,
-        figsize=(20,10),
+        figsize=(20, 10),
         collocations=False,
         noise_words=NOISE_WORDS,
+        black_and_white=False,
 ):
     tokens = list(
         itertools.chain.from_iterable(df[col])
@@ -174,13 +185,25 @@ def generate_wordcloud(
 
     res = wc.WordCloud(
         background_color="white",
-        max_words=2_000,
+        max_words=500,
         max_font_size=80,
         random_state=50,
         width=width,
         height=height,
         collocations=collocations,
-    ).generate(" ".join(phrases))
+        font_path='/Library/Fonts/Arial Unicode.ttf',
+    ).generate_from_text(" ".join(phrases))
+
+    if black_and_white:
+        def black_color_func(
+                word,
+                font_size,
+                position,
+                orientation,
+                random_state=None,
+                **kwargs):
+            return "hsl(0,100%, 1%)"
+        res.recolor(color_func=black_color_func)
 
     plt.figure(figsize=figsize)
     plt.imshow(res)

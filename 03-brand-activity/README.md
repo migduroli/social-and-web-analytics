@@ -668,3 +668,70 @@ La siguiente figura muestra un ejemplo de ejecución (que se puede también enco
 para los tweets publicados por la marca **Louis Vuitton**:
 
 <img src="_img/keywords.png" alt="Pipeline" width="800"/>
+
+Lo mismo se podría hacer con los comentarios a los posts generados por la marca.
+
+Una de las características que podemos observar directamente es que tanto los posts como los 
+comentarios siempre vendrán contaminados de tópicos que están fuera del interés de nuestro
+estudio. Para eliminar este "ruido", lo único que tenemos que hacer es ejecutar:
+
+```python
+wc = generate_wordcloud(posts_df, "keywords", collocations=False, noise_words=NOISE_WORDS)
+```
+donde `NOISE_WORDS` sería una lista de palabras que representen tópicos que queremos eliminar.
+
+Además, como se puede apreciar en la imagen superior, el pre-procesado no ha filtrado URLs.
+Para filtrar esta información que no es relevante como palabras clave, lo único que tendríamos
+que hacer es usar:
+
+```python
+preprocess_and_tokenize(text, filter_urls=True)
+```
+
+que es la forma estándard de ejecución en el pipeline, ya que `filter_urls` tiene como
+valor por defecto `True`.
+
+Si por contra, quisiéramos trabajar con una tabla de frecuencias de palabras clave, podríamos
+utilizar el siguiente código (que filtra aquellas palabras que son #hashtags):
+
+```python
+from collections import Counter
+import pandas as pd
+
+hashtags = set(sum(df["hashtags"].to_list(), []))
+
+h = Counter()
+for idx, r in df.iterrows():
+    h += Counter(r["keywords"])
+
+data = [{"word": k, "freq": v} for k, v in h.items() if k not in list(hashtags)]
+
+word_freq = pd.DataFrame(data).sort_values(by="freq", ascending=False)
+
+word_freq.head(50)
+```
+
+lo que nos resultaría en:
+```python
+word	freq
+19	louisvuitton	76
+20	collection	47
+199	show	33
+240	virgil	33
+241	abloh	29
+222	january	25
+35	new	23
+208	house	22
+205	fashion	21
+246	lvmenfw22	21
+89	recent	20
+462	special	18
+265	presentation	18
+463	editions	18
+464	voguekorea	18
+209	ambassador	18
+466	bts	18
+465	gqkorea	17
+460	bts_twt	17
+23	paris	14
+```
