@@ -714,27 +714,13 @@ word_freq
 
 lo que nos resultaría en:
 ```python
-word	freq
+word        	freq
 louisvuitton	76
-collection	47
-show	33
-virgil	33
-abloh	29
-january	25
-new	23
-house	22
-fashion	21
-lvmenfw22	21
-recent	20
-special	18
-presentation	18
-editions	18
-voguekorea	18
-ambassador	18
-bts	18
-gqkorea	17
-bts_twt	17
-paris	14
+collection	    47
+show	        33
+virgil	        33
+abloh	        29
+...
 ```
 
 La misma funcionalidad se podría utilizar para representar una nube de frecuencias
@@ -743,25 +729,11 @@ de hashtags y extraer los top 20:
 <img src="_img/hashtags_cloud.png" alt="Pipeline" width="800"/>
 
 ```python
-word	freq
+word	        freq
 LouisVuitton	96
-LVMenFW22	32
-LVMenSS22	20
-BTS	18
-LVConnected	6
-LVVolt	6
-V	6
-SUGA	6
-jhope	6
-LVWatches	6
-JungKook	6
-Jimin	6
-Jin	6
-RM	6
-LVSS22	5
-SophieTurner	3
-GongJun	3
-LVMen	3
-LVGifts	3
-LVTheBook	3
+LVMenFW22	    32
+LVMenSS22	    20
+BTS	            18
+LVConnected	    6
+...
 ```
