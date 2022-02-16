@@ -760,3 +760,64 @@ wc = generate_wordcloud(df, "noun_phrases", figsize=(10,5))
 ```
 
 donde `df` sería el `DataFrame` con los datos referentes a los posts o a los comentarios.
+
+
+### Detección de tendencias en series temporales
+
+Hasta ahora, el análisis realizado no ha tenido en cuenta el caracter temporal de los
+eventos que estamos analizando. Sin embargo, el tiempo puede jugar un papel muy importante
+a la hora de capturar la atención de los usuarios. Es por ello que el estudio de las métricas
+básicas y de sentimientos asociados con cada publicación en el tiempo puede darnos una información
+muy valiosa a la hora de mejorar nuestra toma de decisiones como marca.
+
+Para llevar a cabo el análisis temporal de nuestro dataset, lo primero que haremos será el
+indexarlo según la fecha de publicación de la publicación. En este caso vamos a considerar
+los Tweets posteados por la misma marca que en los apartados anteriores. Una vez reindexado 
+el `DataFrame` con la fecha de publiación del Tweet, procederemos a hacer una agregación diaria
+de las métricas públicas. Esto se puede conseguir mediante el siguiente código:
+
+```python
+import numpy as np
+
+# reindex:
+tweets_ts = tweets_df.set_index(["created_at"])
+
+# public metrics columns:
+metrics_cols = [c for c in list(tweets_df.columns) if "public_metrics" in c]
+
+# renaming of the columns:
+dt = tweets_ts[metrics_cols].rename(
+  columns={
+    c: c.replace("public_metrics.", "") for c in metrics_cols
+  }
+)
+
+
+dt["n_tweets"] = 1
+
+dt = dt.resample("D").sum().reset_index().rename(
+  columns={"created_at": "date"}
+)
+
+# re-scale to use logarithmic scale:
+dt[list(dt.columns)[1:]] += 1
+```
+
+Una vez hemos hecho las transformaciones adecuadas, podemos proceder con la representación 
+gráfica conveniente. Por ejemplo, el siguiente código:
+
+```python
+import plotly.express as px
+
+fig = px.bar(
+  dt,
+  x="date",
+  y=list(dt.columns)[1:],
+  log_y=True
+)
+fig.show()
+```
+
+generará la figura:
+
+<img src="_img/tweettrends.png.png" alt="Pipeline" width="800"/>
