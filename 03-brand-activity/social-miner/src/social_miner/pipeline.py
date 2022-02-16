@@ -52,7 +52,7 @@ import matplotlib.pyplot as plt
 
 
 # Feature extraction:
-def get_hashtags(text):
+def extract_hashtags(text):
     hashtags = list(set(re.findall(
         pattern=r"#(\w+)",
         string=text
@@ -61,7 +61,7 @@ def get_hashtags(text):
 
 
 # Preprocess:
-def preprocess(text: str):
+def preprocess_and_tokenize(text: str):
     # cleans white spaces and punctuation, and converts text to lower
     c_text = re.sub(
         pattern=r"[^\w\s]",
@@ -82,7 +82,7 @@ def tag_tokens(text):
 
 
 #
-def get_keywords(tagged_tokens, pos="all"):
+def extract_keywords(tagged_tokens, pos="all"):
     if pos == "all":
         lst_pos = ("NN", "JJ", "VP")
     elif pos == "nouns":
@@ -101,7 +101,7 @@ def get_keywords(tagged_tokens, pos="all"):
 
 
 # Get noun phrases:
-def get_noun_phrases(tagged_tokens):
+def extract_noun_phrases(tagged_tokens):
     # Optional determiner, and multiple adjts and nouns
     grammar = "NP: {<DT>?<JJ>*<NN>}"
     cp = nltk.RegexpParser(grammar)
@@ -125,11 +125,11 @@ def get_noun_phrases(tagged_tokens):
 
 def processing_pipeline(df, msg_col):
     df["hastags"] = df.apply(
-        lambda x: get_hashtags(x[msg_col]),
+        lambda x: extract_hashtags(x[msg_col]),
         axis=1
     )
     df["preprocessed"] = df.apply(
-        lambda x: preprocess(x[msg_col]),
+        lambda x: preprocess_and_tokenize(x[msg_col]),
         axis=1
     )
     df["tagged"] = df.apply(
@@ -137,11 +137,11 @@ def processing_pipeline(df, msg_col):
         axis=1
     )
     df["keywords"] = df.apply(
-        lambda x: get_keywords(x["tagged"]),
+        lambda x: extract_keywords(x["tagged"]),
         axis=1
     )
     df["noun_phrases"] = df.apply(
-        lambda x: get_noun_phrases(x["tagged"]),
+        lambda x: extract_noun_phrases(x["tagged"]),
         axis=1
     )
 

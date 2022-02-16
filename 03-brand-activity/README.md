@@ -482,10 +482,11 @@ a seguir son los siguientes:
 <img src="_img/feature-extraction.png" alt="Pipeline" width="600"/>
 
 
-- Obtener los #hashtags del texto crudo obtenido desde la API/Web: [get_hashtags](social-miner/src/social_miner/pipeline.py):
+- Obtener los #hashtags del texto crudo obtenido desde la API/Web: [get_hashtags](social-miner/src/social_miner/pipeline.py)
   ```python
   import re
-  def get_hashtags(text: str):
+  
+  def extract_hashtags(text: str):
     hashtags = list(set(re.findall(
         pattern=r"#(\w+)",
         string=text
@@ -493,12 +494,12 @@ a seguir son los siguientes:
     return hashtags
   ```
 
-- Limpieza, estandarización y *tokenización* del texto: [preprocess_](social-miner/src/social_miner/pipeline.py):
+- Limpieza, estandarización y *tokenización* del texto: [preprocess](social-miner/src/social_miner/pipeline.py)
   ```python
   import re
   import nltk
   
-  def preprocess(text: str):
+  def text_preprocessing(text: str):
     # cleans white spaces and punctuation, and converts text to lower
     c_text = re.sub(
         pattern=r"[^\w\s]",
@@ -514,3 +515,89 @@ a seguir son los siguientes:
   texto en "palabras" (`nltk.word_tokenize`), pero siempre se podría generalizar a otros 
   tipos de tokenización (e.g., *sent_tokenize* o *line_tokenize*).
   
+- Previo a obtener las palabras claves y sintagmas nominales, teniendo ahora el texto tokenizado,
+  haremos primero el etiquetado de los tokens, i.e. la identificación del tipo de palabra
+  (adjetivo, artículo, sustantivo, etc.) Para ello usaremos: [tag_tokens](social-miner/src/social_miner/pipeline.py)
+  ```python
+  import nltk
+  
+  def tag_tokens(text):
+    # Get the part-of-speech of a word in a sentence:
+    pos = nltk.pos_tag(text)
+    return pos
+  ```
+  
+- Ahora sí, la extracción de palabras clave, que lo haremos mediante filtrado de tokens que 
+  sean sustantivos, adjetivos o verbos, usando: []()
+  ```python
+  def extract_keywords(tagged_tokens, types="all", types_list=("NN", "JJ", "VP")):
+    if types == "all":
+        tag_types = types_list
+    elif types == "nouns":
+        tag_types = "NN"
+    elif types == "verbs":
+        tag_types = "VB"
+    elif types == "adjectives":
+        tag_types = "JJ"
+    else:
+        tag_types = types_list
+
+    keywords = [
+        t[0] for t in tagged_tokens if t[1].startswith(tag_types)
+    ]
+    return keywords
+  ```
+  
+- Por último, podemos proceder con la extracción de los sintagmas nominales, usando: [extract_noun_phrases](social-miner/src/social_miner/pipeline.py) 
+  ```python
+  import nltk 
+  
+  def extract_noun_phrases(tagged_tokens):
+      # Optional determiner, and multiple adjts and nouns
+      grammar = "NP: {<DT>?<JJ>*<NN>}"
+      cp = nltk.RegexpParser(grammar)
+      tree = cp.parse(tagged_tokens)
+  
+      result = []
+  
+      def is_noun(token):
+          return token.label() == "NP"
+  
+      for subtree in tree.subtrees(filter = is_noun):
+          leaves = subtree.leaves()
+          if len(leaves) > 1:
+              outputs = " ".join([
+                  t[0] for t in leaves
+              ])
+              result += [outputs]
+  
+      return result
+  ```
+
+Aunque podemos proceder con la ejecución de cada uno de estos pasos de forma manual y secuencial,
+también podemos centralizar la ejecución en una función que hará las veces de *pipeline*: [pipeline](social-miner/src/social_miner/pipeline.py)
+```python
+def processing_pipeline(df: DataFrame, msg_col: str):
+    df["hastags"] = df.apply(
+        lambda x: extract_hashtags(x[msg_col]),
+        axis=1
+    )
+    df["preprocessed"] = df.apply(
+        lambda x: preprocess_and_tokenize(x[msg_col]),
+        axis=1
+    )
+    df["tagged"] = df.apply(
+        lambda x: tag_tokens(x["preprocessed"]),
+        axis=1
+    )
+    df["keywords"] = df.apply(
+        lambda x: extract_keywords(x["tagged"]),
+        axis=1
+    )
+    df["noun_phrases"] = df.apply(
+        lambda x: extract_noun_phrases(x["tagged"]),
+        axis=1
+    )
+
+    return df
+```
