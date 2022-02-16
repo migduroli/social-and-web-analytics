@@ -733,7 +733,7 @@ word	        freq
 LouisVuitton    96
 LVMenFW22       32
 LVMenSS22       20
-BTS     18
+BTS         18
 LVConnected     6
 ...
 ```
