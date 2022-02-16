@@ -601,3 +601,65 @@ def processing_pipeline(df: DataFrame, msg_col: str):
 
     return df
 ```
+Todo este proceso se puede ver en acción en el siguiente [Jupyter Notebook](../inclass-material/04-mining-brand.ipynb).
+
+### Análisis: Palabras clave y sintagmas nominales
+
+Una vez tenemos preparado el dataset con la estructura e ingredientes adecuados,
+podemos proceder al análisis del contenido de los posts (y de sus respuestas por los usuarios).
+
+#### Palabras claves
+
+Una de las métricas más directas de extraer y analizar dado el estado actual del dataset es
+la frecuencia de aparición de palabras, así como la extracción de las "más frecuentemente usadas".
+Ésto se puede hacer tanto a nivel de posts de la marca, como a nivel de comentarios/reacciones de
+los usuarios mediante el análisis de los comentarios asociados a cada post. Independientemente
+de a qué `DataFrame` lo apliquemos, lo primero que haremos será definir una función que nos
+permitirá visualizar las palabras más usadas mediante una nube de palabras. En particular,
+usaremos [generate_wordcloud](social-miner/src/social_miner/pipeline.py):
+
+```python
+import itertools
+import wordcloud as wc
+import matplotlib.pyplot as plt
+
+NOISE_WORDS = []
+
+def generate_wordcloud(
+        df: pd.DataFrame, col,
+        width=800,
+        height=400,
+        figsize=(20,10),
+        collocations=False,
+        noise_words=NOISE_WORDS,
+):
+    tokens = list(
+        itertools.chain.from_iterable(df[col])
+    )
+
+    phrases = [
+        phrase.replace(" ", "_") for phrase in tokens
+        if len(phrase) > 1
+    ]
+
+    phrases = [
+        p for p in phrases if not any(spam in p.lower() for spam in NOISE_WORDS)
+    ]
+
+    res = wc.WordCloud(
+        background_color="white",
+        max_words=2_000,
+        max_font_size=80,
+        random_state=50,
+        width=width,
+        height=height,
+        collocations=collocations,
+    ).generate(" ".join(phrases))
+
+    plt.figure(figsize=figsize)
+    plt.imshow(res)
+    plt.axis("off")
+    plt.show()
+
+    return res
+```
