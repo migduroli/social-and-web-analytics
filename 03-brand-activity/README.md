@@ -186,7 +186,7 @@ posts (Facebook) y Tweets (Twitter) lo vamos a hacer utilizando los siguientes s
     ```
   Donde `BRAND_PAGE_NAME` será el nombre de la página de la marca que queramos minar,
   por ejemplo: `Google`.
-  
+
 
 - [mine-tweets](social-miner/src/social_miner/twitter.py):
   ```python
@@ -425,7 +425,7 @@ posts (Facebook) y Tweets (Twitter) lo vamos a hacer utilizando los siguientes s
     
         tw.mine_user_tweets(user_name=brand)
   ```
-  
+
   Para ejecutar el script, solo tenemos que cambiar el permiso del fichero (`chmod a+x twitter_mining.py`)
   y ejecutar la siguiente línea de comando:
   ```shell
@@ -434,12 +434,12 @@ posts (Facebook) y Tweets (Twitter) lo vamos a hacer utilizando los siguientes s
   Donde `BRAND_USERNAME` será el nombre de la cuenta de Twitter de la marca que queramos minar,
   por ejemplo: `Google`.
 
-‼️ **Nota**: Para que los scripts anteriores funcionen correctamente, deberemos tener 
+‼️ **Nota**: Para que los scripts anteriores funcionen correctamente, deberemos tener
 MongoDB corriendo en nuestro sistema. Para ello recomendamos ejecutar:
 ```shell
 > docker run --name mongodb -d -p 27017:27017 -v LOCAL_PATH_TO_BIND:/data/db mongo
 ```
-Este comando de docker lanzará una imagen de docker de MongoDB que guardará los datos en 
+Este comando de docker lanzará una imagen de docker de MongoDB que guardará los datos en
 el nuestro directorio local `LOCAL_PATH_TO_BIND` (sustituir con la dirección que nostros
 queramos).
 
@@ -459,14 +459,14 @@ El proceso de extracción que se realiza mediante los scripts anteriores consist
 - Descargar todos los datos referentes a los *retweeterers* que nos permita la API de Twitter
 
 
-Las descargas enunciadas son inmediatamente guardadas en una colección en MongoDB con el 
+Las descargas enunciadas son inmediatamente guardadas en una colección en MongoDB con el
 nombre de la marca. De esta forma, la etapa de procesado y extracción de información puede
 ocurrir sin necesidad de conectarnos a la API nuevamente, ya que tenemos los datos en local.
 
 ‼️ **Nota 2**: En las prácticas de clase, se han colectado los datos referentes a la marca
 *Louis Vuitton*. Los datos colectados han sido compartido a través del grupo de la asignatura
 como `data.zip`, que representa la carpeta generada por MongoDB. Para poder trabajar con
-esos datos lo único que tienes que hacer es descargar el fichero *.zip*, descomprimirlo en 
+esos datos lo único que tienes que hacer es descargar el fichero *.zip*, descomprimirlo en
 el directorio que creas oportuno en tu sistema operativo, y ejecutes:
 ```shell
 > docker run --name mongodb -d -p 27017:27017 -v UNZIP_FILE_PATH:/data/db mongo
@@ -474,12 +474,12 @@ el directorio que creas oportuno en tu sistema operativo, y ejecutes:
 
 #### Procesado (*Feature Extraction*)
 
-Una vez hemos descargado los datos que consideramos oportunos a nuestra base de datos, 
+Una vez hemos descargado los datos que consideramos oportunos a nuestra base de datos,
 procederemos a su procesamiento para extraer la información fundamental que nos permitirá
 responder a las cuestiones planteadas anteriormente. En esencia, los pasos que vamos
 a seguir son los siguientes:
 
-<img src="_img/pipeline.png" alt="Pipeline" width="600"/>
+<img src="_img/feature-extraction.png" alt="Pipeline" width="600"/>
 
 
 - Obtener los #hashtags del texto crudo obtenido desde la API/Web: [get_hashtags](social-miner/src/social_miner/pipeline.py):
@@ -492,3 +492,25 @@ a seguir son los siguientes:
     )))
     return hashtags
   ```
+
+- Limpieza, estandarización y *tokenización* del texto: [preprocess_](social-miner/src/social_miner/pipeline.py):
+  ```python
+  import re
+  import nltk
+  
+  def preprocess(text: str):
+    # cleans white spaces and punctuation, and converts text to lower
+    c_text = re.sub(
+        pattern=r"[^\w\s]",
+        repl="",
+        string=text.lower().strip()
+    )
+
+    # tokenize words:
+    tokens = nltk.word_tokenize(c_text)
+    return tokens
+  ```
+  En este caso en particular, el pre-procesado del texto finaliza con la "tokenización" del
+  texto en "palabras" (`nltk.word_tokenize`), pero siempre se podría generalizar a otros 
+  tipos de tokenización (e.g., *sent_tokenize* o *line_tokenize*).
+  
