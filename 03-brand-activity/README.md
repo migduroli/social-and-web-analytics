@@ -716,7 +716,7 @@ lo que nos resultaría en:
 ```python
 word        	freq
 louisvuitton	76
-collection	    47
+collection      47
 show	        33
 virgil	        33
 abloh	        29
@@ -730,8 +730,8 @@ de hashtags y extraer los top 20:
 
 ```python
 word	        freq
-LouisVuitton	96
-LVMenFW22	    32
+LouisVuitton        96
+LVMenFW22       32
 LVMenSS22	    20
 BTS	            18
 LVConnected	    6
