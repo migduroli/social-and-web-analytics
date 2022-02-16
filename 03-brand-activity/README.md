@@ -667,4 +667,4 @@ def generate_wordcloud(
 La siguiente figura muestra un ejemplo de ejecución (que se puede también encontrar [aquí](../inclass-material/04-mining-brand.ipynb))
 para los tweets publicados por la marca **Louis Vuitton**:
 
-<img src="_img/keywords.png" alt="Pipeline" width="600"/>
+<img src="_img/keywords.png" alt="Pipeline" width="800"/>
