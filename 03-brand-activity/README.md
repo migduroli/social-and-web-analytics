@@ -698,17 +698,18 @@ utilizar el siguiente código (que filtra aquellas palabras que son #hashtags):
 from collections import Counter
 import pandas as pd
 
-hashtags = set(sum(df["hashtags"].to_list(), []))
+hashtags = list(set(sum(df["hashtags"].to_list(), [])))
 
-h = Counter()
-for idx, r in df.iterrows():
-    h += Counter(r["keywords"])
+def get_top_freq(df, col, n=20, excluded_words=[]):
+  h = Counter()
+  for idx, r in df.iterrows():
+    h += Counter(r[col])
+  data = [{"word": k, "freq": v} for k, v in h.items() if k not in list(excluded_words)]
+  wf = pd.DataFrame(data).sort_values(by="freq", ascending=False)
+  return wf.head(n)
 
-data = [{"word": k, "freq": v} for k, v in h.items() if k not in list(hashtags)]
-
-word_freq = pd.DataFrame(data).sort_values(by="freq", ascending=False)
-
-word_freq.head(50)
+word_freq = get_top_freq(df, col="keywords", n=20, excluded_words=hashtags)
+word_freq
 ```
 
 lo que nos resultaría en:
@@ -734,4 +735,33 @@ bts	18
 gqkorea	17
 bts_twt	17
 paris	14
+```
+
+La misma funcionalidad se podría utilizar para representar una nube de frecuencias
+de hashtags y extraer los top 20:
+
+<img src="_img/hashtags_cloud.png" alt="Pipeline" width="800"/>
+
+```python
+word	freq
+LouisVuitton	96
+LVMenFW22	32
+LVMenSS22	20
+BTS	18
+LVConnected	6
+LVVolt	6
+V	6
+SUGA	6
+jhope	6
+LVWatches	6
+JungKook	6
+Jimin	6
+Jin	6
+RM	6
+LVSS22	5
+SophieTurner	3
+GongJun	3
+LVMen	3
+LVGifts	3
+LVTheBook	3
 ```
