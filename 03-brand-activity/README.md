@@ -820,4 +820,4 @@ fig.show()
 
 generará la figura:
 
-<img src="_img/tweettrends.png.png" alt="Pipeline" width="800"/>
+<img src="_img/tweettrends.png" alt="Pipeline" width="800"/>
