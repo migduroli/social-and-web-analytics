@@ -624,7 +624,7 @@ a seguir son los siguientes:
 <img src="_img/feature-extraction.png" alt="Pipeline" width="600"/>
 
 
-- Obtener los #hashtags del texto crudo obtenido desde la API/Web: [extract_hashtags](social-miner/src/social_miner/pipeline.py)
+- Obtener los #hashtags del texto crudo obtenido desde la API/Web: [extract_hashtags](social-miner/src/social_miner/processing/pipeline.py)
   ```python
   import re
   
@@ -636,7 +636,7 @@ a seguir son los siguientes:
     return hashtags
   ```
 
-- Limpieza, estandarización y *tokenización* del texto: [text_preprocess](social-miner/src/social_miner/pipeline.py)
+- Limpieza, estandarización y *tokenización* del texto: [text_preprocess](social-miner/src/social_miner/processing/pipeline.py)
   ```python
   import re
   import nltk
@@ -659,7 +659,7 @@ a seguir son los siguientes:
   
 - Previo a obtener las palabras claves y sintagmas nominales, teniendo ahora el texto tokenizado,
   haremos primero el etiquetado de los tokens, i.e. la identificación del tipo de palabra
-  (adjetivo, artículo, sustantivo, etc.) Para ello usaremos: [tag_tokens](social-miner/src/social_miner/pipeline.py)
+  (adjetivo, artículo, sustantivo, etc.) Para ello usaremos: [tag_tokens](social-miner/src/social_miner/processing/pipeline.py)
   ```python
   import nltk
   
@@ -670,7 +670,7 @@ a seguir son los siguientes:
   ```
   
 - Ahora sí, la extracción de palabras clave, que lo haremos mediante filtrado de tokens que 
-  sean sustantivos, adjetivos o verbos, usando: [extract_keywords](social-miner/src/social_miner/pipeline.py)
+  sean sustantivos, adjetivos o verbos, usando: [extract_keywords](social-miner/src/social_miner/processing/pipeline.py)
   ```python
   def extract_keywords(tagged_tokens, types="all", types_list=("NN", "JJ", "VP")):
     if types == "all":
@@ -690,7 +690,7 @@ a seguir son los siguientes:
     return keywords
   ```
   
-- Por último, podemos proceder con la extracción de los sintagmas nominales, usando: [extract_noun_phrases](social-miner/src/social_miner/pipeline.py) 
+- Por último, podemos proceder con la extracción de los sintagmas nominales, usando: [extract_noun_phrases](social-miner/src/social_miner/processing/pipeline.py) 
   ```python
   import nltk 
   
@@ -717,7 +717,7 @@ a seguir son los siguientes:
   ```
 
 Aunque podemos proceder con la ejecución de cada uno de estos pasos de forma manual y secuencial,
-también podemos centralizar la ejecución en una función que hará las veces de *pipeline*: [processing_pipeline](social-miner/src/social_miner/pipeline.py)
+también podemos centralizar la ejecución en una función que hará las veces de *pipeline*: [processing_pipeline](social-miner/src/social_miner/processing/pipeline.py)
 ```python
 def processing_pipeline(df: DataFrame, msg_col: str):
     df["hastags"] = df.apply(
@@ -758,7 +758,7 @@ la frecuencia de aparición de palabras, así como la extracción de las "más f
 los usuarios mediante el análisis de los comentarios asociados a cada post. Independientemente
 de a qué `DataFrame` lo apliquemos, lo primero que haremos será definir una función que nos
 permitirá visualizar las palabras más usadas mediante una nube de palabras. En particular,
-usaremos [generate_wordcloud](social-miner/src/social_miner/pipeline.py):
+usaremos [generate_wordcloud](social-miner/src/social_miner/processing/pipeline.py):
 
 ```python
 import itertools

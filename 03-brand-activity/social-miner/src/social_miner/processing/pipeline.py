@@ -8,48 +8,6 @@ import wordcloud as wc
 
 import matplotlib.pyplot as plt
 
-# posts = list()
-#
-# posts_cols = [
-#     '_id', 'text', 'post_text', 'shared_text', 'time', 'video_watches',
-#     'likes', 'comments', 'shares', 'user_id',
-# ]
-#
-# comments_cols = [
-#     '_id', 'comments_full',
-# ]
-#
-# comments_data = [{k: p[k] for k in comments_cols} for p in posts]
-# posts_data = [{k: p[k] for k in posts_cols} for p in posts]
-#
-# posts_df = pd.DataFrame(posts_data).rename(
-#     columns={"_id": "id"}
-# )
-#
-# comments_full_cols = [
-#     "id",
-#     "comment_time",
-#     "comment_text",
-#     "comment_reactions",
-# ]
-# comments_df = pd.DataFrame(
-#     columns=comments_full_cols
-# )
-# for c in comments_data:
-#     c_df = pd.json_normalize(c["comments_full"])
-#     try:
-#         c_df.loc[:, "id"] = c["_id"]
-#         comments_df = comments_df.append(
-#             c_df[comments_full_cols]
-#         )
-#     except:
-#         print(f"Unable to insert: {c['_id']} ({c_df.shape})")
-#
-#
-# comments_df = pd.DataFrame(
-#     columns=comments_full_cols
-# )
-
 
 # Feature extraction:
 def extract_hashtags(text):
