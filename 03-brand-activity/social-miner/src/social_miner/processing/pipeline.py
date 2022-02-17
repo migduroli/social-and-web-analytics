@@ -1,5 +1,6 @@
 import nltk
 import re
+import emoji
 
 
 # Feature extraction:
@@ -19,7 +20,11 @@ def remove_urls(text: str):
 
 
 # Preprocess:
-def preprocess_and_tokenize(text: str, filter_urls: bool = True):
+def preprocess_and_tokenize(
+        text: str,
+        filter_urls: bool = True,
+        demojize: bool = False,
+):
     # cleans white spaces and punctuation, and converts text to lower
     c_text = re.sub(
             pattern=r"[^\w\s]",
@@ -29,6 +34,9 @@ def preprocess_and_tokenize(text: str, filter_urls: bool = True):
 
     if filter_urls:
         c_text = remove_urls(c_text)
+
+    if demojize:
+        c_text = emoji.demojize(c_text, delimiters=("", ""))
 
     # tokenize words:
     tokens = nltk.word_tokenize(c_text)
