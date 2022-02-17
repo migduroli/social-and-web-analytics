@@ -201,7 +201,7 @@ posts (Facebook) y Tweets (Twitter) lo vamos a hacer utilizando los siguientes s
   
   def main():
       parser = argparse.ArgumentParser()
-      parser.add_argument("-u", "--brand", required=True)
+      parser.add_argument("-b", "--brand", required=True)
       parser.add_argument("-c", "--cookies", required=True)
       args = parser.parse_args()
   
@@ -218,7 +218,7 @@ posts (Facebook) y Tweets (Twitter) lo vamos a hacer utilizando los siguientes s
   Para ejecutar el script, sólo tenemos que cambiar el permiso del fichero (`chmod a+x fb_mining.py`)
   y ejecutar la siguiente línea de comando:
     ```shell
-    > ./facebook.py BRAND_PAGE_NAME
+    > ./facebook.py --brand BRAND_PAGE_NAME --cookies YOUR_COOKIES_PATH
     ```
   Donde `BRAND_PAGE_NAME` será el nombre de la página de la marca que queramos minar,
   por ejemplo: `Google`.
@@ -571,7 +571,7 @@ posts (Facebook) y Tweets (Twitter) lo vamos a hacer utilizando los siguientes s
   Para ejecutar el script, solo tenemos que cambiar el permiso del fichero (`chmod a+x twitter_mining.py`)
   y ejecutar la siguiente línea de comando:
   ```shell
-    > ./twitter.py BRAND_USERNAME
+    > ./twitter.py --username BRAND_USERNAME --credentials YOUR_CREDENTIALS_PATH
   ```
   Donde `BRAND_USERNAME` será el nombre de la cuenta de Twitter de la marca que queramos minar,
   por ejemplo: `Google`.
