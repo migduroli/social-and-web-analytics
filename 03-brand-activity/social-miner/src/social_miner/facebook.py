@@ -150,7 +150,7 @@ def dump_posts(account:str, config=None, limit=None):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("-b", "--brand", required=True)
-    parser.add_argument("-c", "--cookies", required=True)
+    parser.add_argument("-c", "--cookies", required=False)
     args = parser.parse_args()
 
     mine_posts(
