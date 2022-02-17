@@ -1,7 +1,7 @@
 #!/usr/bin/env python
+import argparse
 import json
 import logging
-import sys
 
 import pymongo as pymdb
 import facebook_scraper as fb
@@ -11,7 +11,7 @@ logging.basicConfig(level=logging.INFO)
 
 
 default_config = {
-    "cookies_path": "auth/private/fb_cookies.json",
+    "cookies_path": None, # "auth/private/fb_cookies.json",
     "extract_options": {
         "comments": True,
         "allow_extra_requests": True,
@@ -148,8 +148,15 @@ def dump_posts(account:str, config=None, limit=None):
 
 
 def main():
-    brand = sys.argv[1]
-    mine_posts(account=brand)
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-u", "--brand", required=True)
+    parser.add_argument("-c", "--cookies", required=True)
+    args = parser.parse_args()
+
+    mine_posts(
+        account=args.brand,
+        config={**default_config, "cookies_path": args.cookies}
+    )
 
 
 if __name__ == "__main__":

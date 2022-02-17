@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import argparse
 import json
 import logging
 import tweepy
@@ -315,11 +316,13 @@ def dump_tweets(
 
 
 def mine_tweets_console(
-        credentials_path: str = "auth/private/twitter_credentials.json",
         db_params=None,
         limit: int = None,
 ):
-    brand = sys.argv[1]
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-u", "--username", required=True)
+    parser.add_argument("-c", "--credentials", required=True)
+    args = parser.parse_args()
 
     if db_params is None:
         db_params = APIScraper.DEFAULT_DB_CONFIG
@@ -327,13 +330,13 @@ def mine_tweets_console(
         limit = APIScraper.MAX_ITEMS
 
     tw = TwitterScraper(
-        credentials_path=credentials_path,
+        credentials_path=args.credentials,
         db_params=db_params,
         api_version=TwitterVersion.V2,
         max_items=limit,
     )
 
-    tw.mine_user_tweets(user_name=brand)
+    tw.mine_user_tweets(user_name=args.username)
 
 
 if __name__ == "__main__":

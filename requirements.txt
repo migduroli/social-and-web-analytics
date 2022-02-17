@@ -1,3 +1,4 @@
+argparse
 python-twitter-v2
 tweepy
 matplotlib
