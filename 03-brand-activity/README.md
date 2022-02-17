@@ -946,7 +946,8 @@ dt[list(dt.columns)[1:]] += 1
 ```
 
 Una vez hemos hecho las transformaciones adecuadas, podemos proceder con la representación 
-gráfica conveniente. Por ejemplo, el siguiente código:
+gráfica conveniente. Por ejemplo, el siguiente código generará la figura adjunta más abajo donde podemos
+apreciar el cambio temporal de las métricas públicas (y el número tweets) por día:
 
 ```python
 import plotly.express as px
@@ -960,6 +961,6 @@ fig = px.bar(
 fig.show()
 ```
 
-generará la figura:
-
 <img src="_img/tweettrends.png" alt="Pipeline" width="800"/>
+
+
