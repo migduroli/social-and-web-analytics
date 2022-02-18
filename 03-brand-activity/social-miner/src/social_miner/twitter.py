@@ -4,13 +4,12 @@ import argparse
 import json
 import logging
 import tweepy
-import sys
-
-from enum import Enum
 
 import pymongo as pymdb
 
-from bson.json_util import dumps
+from enum import Enum
+from social_miner.commons import FileFormat, dump_binary_pickle
+
 
 logging.basicConfig(level=logging.INFO)
 
@@ -240,20 +239,23 @@ class TwitterScraper(APIScraper):
 
         return posts
 
-    def dump_tweets(self, user_name, limit=None):
+    def dump_tweets(
+            self,
+            user_name: str,
+            limit=None,
+            file_format: FileFormat = FileFormat.PICKLE
+    ):
         collection = self.collection[user_name]
         cursor = collection.find({})
         if limit:
             cursor = cursor.limit(limit)
 
         logging.info(f"Dumping collection {user_name}...")
-        filename = f"tw_tweets_{user_name}.json"
-        with open(filename, "w") as f:
-            f.write("[")
-            for document in cursor:
-                f.write(dumps(document))
-                f.write(",")
-            f.write("]")
+        filename = f"tw_tweets_{user_name}." + file_format.name.lower()
+
+        counter = dump_binary_pickle(cursor, filename)
+
+        logging.info(f"Total collection records: {counter}")
         logging.info(f"Collection {user_name} dumped in {filename}")
         return
 
@@ -300,7 +302,8 @@ def dump_tweets(
         account: str,
         limit: int = None,
         credentials_path: str = "auth/private/twitter_credentials.json",
-        db_params=None
+        db_params=None,
+        file_format: FileFormat = FileFormat.PICKLE
 ):
     if db_params is None:
         db_params = APIScraper.DEFAULT_DB_CONFIG
@@ -312,7 +315,7 @@ def dump_tweets(
         max_items=limit,
     )
 
-    return tw.dump_tweets(user_name=account, limit=limit)
+    return tw.dump_tweets(user_name=account, limit=limit, file_format=file_format)
 
 
 def mine_tweets_console(

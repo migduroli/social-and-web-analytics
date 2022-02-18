@@ -5,7 +5,8 @@ import logging
 
 import pymongo as pymdb
 import facebook_scraper as fb
-from bson.json_util import dumps
+
+from social_miner.commons import FileFormat, dump_binary_pickle
 
 logging.basicConfig(level=logging.INFO)
 
@@ -24,7 +25,6 @@ default_config = {
     },
     "max_pages": 100_000,
 }
-
 
 class FBScraper:
 
@@ -104,21 +104,18 @@ class FBScraper:
 
         return posts
 
-    def dump_posts(self, account, limit=None):
+    def dump_posts(self, account, limit=None, export_format=FileFormat.PICKLE):
         collection = self.collection[account]
         cursor = collection.find({})
         if limit:
             cursor = cursor.limit(limit)
 
         logging.info(f"Dumping collection {account}...")
-        filename = f"fb_posts_{account}.json"
+        filename = f"fb_posts_{account}." + export_format.name.lower()
 
-        with open(filename, "w") as f:
-            f.write("[")
-            for document in cursor:
-                f.write(dumps(document))
-                f.write(",")
-            f.write("]")
+        counter = dump_binary_pickle(cursor, filename)
+
+        logging.info(f"Total collection records: {counter}")
         logging.info(f"Collection {account} dumped in {filename}")
         return
 
@@ -139,12 +136,17 @@ def read_posts(account: str, config=None, limit=100):
     return fb.read_posts(account=account, limit=limit)
 
 
-def dump_posts(account:str, config=None, limit=None):
+def dump_posts(
+        account: str,
+        config=None,
+        limit=None,
+        export_format: FileFormat = FileFormat.PICKLE
+):
     if config is None:
         config = default_config
 
     fb = FBScraper(**config)
-    return fb.dump_posts(account=account, limit=limit)
+    return fb.dump_posts(account=account, limit=limit, export_format=export_format)
 
 
 def main():
