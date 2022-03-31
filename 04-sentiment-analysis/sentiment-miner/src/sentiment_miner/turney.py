@@ -152,42 +152,36 @@ def check_turney_patterns(
     patterns = []
 
     patterns.append(
-        postag_1[1] == PennTreebank.JJ.name and
-        (postag_2[1] == PennTreebank.NN.name
-         or postag_2[1] == PennTreebank.NNS.name)
+        postag_1[1] in [PennTreebank.JJ.name] and
+        (postag_2[1] in [PennTreebank.NN.name, PennTreebank.NNS.name])
     )
 
     patterns.append(
-        (postag_1[1] == PennTreebank.RB.name or
-         postag_1[1] == PennTreebank.RBR.name or
-         postag_1[1] == PennTreebank.RBS.name) and
-        (postag_2[1] == PennTreebank.JJ.name and
-         postag_3[1] != PennTreebank.NN.name and
-         postag_3[1] != PennTreebank.NNS.name)
+        (postag_1[1] in [
+            PennTreebank.RB.name,
+            PennTreebank.RBR.name,
+            PennTreebank.RBS.name,
+            PennTreebank.JJ.name,
+            PennTreebank.NN.name,
+            PennTreebank.NNS.name,
+        ]) and (postag_2[1] in [PennTreebank.JJ.name] and
+                postag_3[1] not in [
+                            PennTreebank.NN.name,
+                            PennTreebank.NNS.name
+                        ])
     )
 
     patterns.append(
-        postag_1[1] == PennTreebank.JJ.name and
-        postag_2[1] == PennTreebank.JJ.name and
-        postag_3[1] != PennTreebank.NN.name and
-        postag_3[1] != PennTreebank.NNS.name)
-
-    patterns.append(
-        (postag_1[1] == PennTreebank.NN.name or
-         postag_1[1] == PennTreebank.NNS.name) and
-        (postag_2[1] == PennTreebank.JJ.name and
-         postag_3[1] != PennTreebank.NN.name and
-         postag_3[1] != PennTreebank.NNS.name)
-    )
-
-    patterns.append(
-        (postag_1[1] == PennTreebank.RB.name or
-         postag_1[1] == PennTreebank.RBR.name or
-         postag_1[1] == PennTreebank.RBS.name) and
-        (postag_2[1] == PennTreebank.VB.name or
-         postag_2[1] == PennTreebank.VBD.name or
-         postag_2[1] == PennTreebank.VBN.name or
-         postag_2[1] == PennTreebank.VBG.name)
+        (postag_1[1] in [
+            PennTreebank.RB.name,
+            PennTreebank.RBR.name,
+            PennTreebank.RBS.name
+        ]) and (postag_2[1] in [
+            PennTreebank.VB.name,
+            PennTreebank.VBD.name,
+            PennTreebank.VBN.name,
+            PennTreebank.VBG.name
+        ])
     )
 
     return any(patterns)
@@ -258,7 +252,7 @@ class Turney(object):
 
         self._n_folds = n_folds
 
-    def _train(self, phrases: list, n_fold: int = 0):
+    def _compute_hits(self, phrases: list, n_fold: int = 0):
         self.pos_phrases_hits = [self.pos_hits_init] * len(phrases)
         self.neg_phrases_hits = [self.neg_hits_init] * len(phrases)
         self.pos_hits = self.pos_hits_init
@@ -287,14 +281,20 @@ class Turney(object):
             for i, data in enumerate(self.datasets[n_fold]['test'][test_klass]):
                 print(f"{test_klass.title()} Document: {i}")
                 text = read_document(data)
-                doc_tokens = find_pattern(nltk.pos_tag(nltk.word_tokenize(text)))
 
-                self._train(doc_tokens)
+                doc_tokens = find_pattern(
+                    postag=nltk.pos_tag(nltk.word_tokenize(text))
+                )
 
-                so = self._predict_so()
+                self._compute_hits(doc_tokens)
+
+                so = self.compute_sentiment_orientation()
 
                 is_negative = (test_klass == self._negative_tag)
-                self._update_confusion_matrix(so, is_negative)
+                self._update_confusion_matrix(
+                    predict=so,
+                    is_negative=is_negative
+                )
 
                 self.sentiments.update({
                     data: so
@@ -305,7 +305,7 @@ class Turney(object):
         print("Final Confusion Matrix")
         print(self.confusion_matrix)
 
-    def _predict_so(self):
+    def compute_sentiment_orientation(self):
         polarities = [
             math.log((self.pos_phrases_hits[i] * self.neg_hits) /
                      (self.neg_phrases_hits[i] * self.pos_hits), 2)
