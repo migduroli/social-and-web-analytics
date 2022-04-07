@@ -33,11 +33,11 @@ siguiente índice de contenidos:
     - [Detección de tendencias](03-brand-activity/README.md#detección-de-tendencias-en-series-temporales)
 
       
-4. Análisis de sentimientos y percepción de consumidor
+4. [Análisis de sentimientos y percepción de consumidor](04-sentiment-analysis/README.md)
 
     - ¿Cómo extraer sentimientos?
     - Análisis de sentimiento con APIs
-    - Introducción a la clasificación personalizada
+    - [Introducción a la clasificación personalizada](04-sentiment-analysis/turney-algorithm/turney-algorithm.ipynb)
     - Patrones de comportamiento
 
 
