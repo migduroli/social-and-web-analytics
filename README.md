@@ -41,7 +41,7 @@ siguiente índice de contenidos:
     - Patrones de comportamiento
 
 
-5. Métricas para cuantificación de experiencia de usuario
+5. [Métricas para cuantificación de experiencia de usuario](05-users-journey-kpis/README.md)
  
     - Definición de métricas
     - Diseño de la trayectoria de usuario
